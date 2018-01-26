@@ -29,12 +29,14 @@ public class TowerPlacement : MonoBehaviour
             Vector3 mouseCast = towerAtMousePosition();
             if (Input.GetMouseButtonDown(0))
             {
+                mouseCast.y += (towerPrefabs[0].GetComponent<Renderer>().bounds.size.y/2);
                 Instantiate(towerPrefabs[0], mouseCast, Quaternion.identity);
                 towerNotPlaced = false;
             }
         }
     }
 
+    // Function to check the position 
     private Vector3 towerAtMousePosition()
     {
         Vector3 mousePos = Input.mousePosition;
