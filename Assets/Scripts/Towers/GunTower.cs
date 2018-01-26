@@ -6,9 +6,7 @@ public class GunTower : AttackTower {
 
     // Use this for initialization
     protected override void Start () {
-        //HACK this is just for the test, before connections are done
         base.Start();
-        m_powerInput = 3;
 	}
 	
 	// Update is called once per frame
@@ -18,7 +16,8 @@ public class GunTower : AttackTower {
 
     protected override void ShootEnemy(RobotNavigation enemy)
     {
-        base.ShootEnemy(enemy);
-        enemy.OnHit(damage);
+        shotReady = false;
+        reloadProgress = 0;
+        Debug.Log("Shots fired");
     }
 }

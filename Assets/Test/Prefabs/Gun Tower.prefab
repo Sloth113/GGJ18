@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136596525108696560}
   - component: {fileID: 23513989066456082}
   - component: {fileID: 114188523014268024}
+  - component: {fileID: 135609840290416850}
   m_Layer: 0
   m_Name: Gun Tower
   m_TagString: Untagged
@@ -55,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847085141989300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55, y: 7.35, z: 62.25}
+  m_LocalPosition: {x: 56.2, y: 7.35, z: 26.6}
   m_LocalScale: {x: 4, y: 7, z: 4}
   m_Children:
   - {fileID: 4646221366066984}
@@ -164,16 +165,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a952946ce9bb444b765dcb9fa275e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_powerInput: 0
   visited: 0
   inStack: 0
   children: []
-  minPower: 0
-  maxPower: 0
-  minROF: 0
-  maxROF: 0
+  minPower: 1
+  maxPower: 10
+  minROF: 0.5
+  maxROF: 2
   fireTime: 0
   reloadProgress: 0
-  range: 0
+  damage: 30
+  EnemyDetector: {fileID: 135609840290416850}
+  range: 5
+--- !u!135 &135609840290416850
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847085141989300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!136 &136203926731783538
 CapsuleCollider:
   m_ObjectHideFlags: 1
