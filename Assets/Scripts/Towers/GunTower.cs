@@ -5,6 +5,7 @@ using UnityEngine;
 public class GunTower : AttackTower {
 
     public LineRenderer laser;
+    public GameObject laserOrigin;
 
     [SerializeField] float laserDisplayTime = 0.2f;
     [SerializeField] float laserTimer = 0.0f;
@@ -41,7 +42,7 @@ public class GunTower : AttackTower {
 
     private void ShowLaser(Vector3 target)
     {
-        laser.SetPosition(0, transform.position);
+        laser.SetPosition(0, laserOrigin.transform.position);
         laser.SetPosition(1, target);
         laserTimer = 0;
         laserShowing = true;
