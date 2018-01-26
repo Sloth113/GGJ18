@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour {
 
-    protected float m_powerInput;
+    [SerializeField]protected float m_powerInput;
 
     public float powerInput { get { return m_powerInput; } }
 
@@ -66,4 +66,36 @@ public abstract class Tower : MonoBehaviour {
             inStack = false;
         }
     }
+
+    //public void UpdateConnections()
+    //{
+    //    HashSet<Tower> attemptedConnections = new HashSet<Tower>(GetConnections());
+    //    List<TowerConnection> currentConnections = new List<TowerConnection>(connections);
+    //    foreach (TowerConnection connect in currentConnections)
+    //    {
+    //        // Check if connection still exists
+    //        if (attemptedConnections.Contains(connect.destination))
+    //        {
+    //            // Delete connection if child of other
+    //            if (connect.destination.children.Contains(this))
+    //            {
+    //                connections.Remove(connect);
+    //                Object.Destroy(connect.gameObject);
+    //            }
+    //            attemptedConnections.Remove(connect.destination);
+    //        } else
+    //        {
+    //            connections.Remove(connect);
+    //        }
+    //    }
+    //    foreach (Tower tower in attemptedConnections)
+    //    {
+    //        if (!tower.children.Contains(this))
+    //        {
+    //            //TODO make new connection
+    //        }
+    //    }
+    ////TODO check if connection in children, if so draw it
+    //}
+
 }

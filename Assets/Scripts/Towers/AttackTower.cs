@@ -15,9 +15,9 @@ public class AttackTower : Tower {
 
     public SphereCollider EnemyDetector;
 
-    bool powered;
+    protected bool powered;
 
-    bool shotReady;
+    protected bool shotReady;
 
     public float range;
 
@@ -78,8 +78,6 @@ public class AttackTower : Tower {
 
     protected virtual void ShootEnemy(RobotNavigation enemy)
     {
-        shotReady = false;
-        reloadProgress = 0;
-        Debug.Log("Shots fired");
+        enemy.OnHit(damage);
     }
 }
