@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour {
                             m_spawnIndex++;
                             m_enemiesInPlay.Add(m_newestEnemy);
                             m_newestEnemy.GetComponent<RobotNavigation>().endDestination = m_powerSource;
-                            //
+                            //put wave count in here 
                             if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count)
                             {
                                 m_waveIndex++;
