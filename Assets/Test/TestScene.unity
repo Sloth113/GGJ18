@@ -922,6 +922,7 @@ GameObject:
   - component: {fileID: 616827767}
   - component: {fileID: 616827766}
   - component: {fileID: 616827771}
+  - component: {fileID: 616827772}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1011,6 +1012,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 664267f58ebf86f489e4114308e701d9, type: 2}
+--- !u!114 &616827772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 616827765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2f8978e01ec2640a033016738cceaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefabs:
+  - {fileID: 1218546439146408, guid: 240cbfc8aec2e824180b52ad20926767, type: 2}
+  groundTransform: {fileID: 562514728}
 --- !u!4 &645135766 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4761016475758978, guid: d1ae62d210aa02e40af78603a4fcb9fa,
