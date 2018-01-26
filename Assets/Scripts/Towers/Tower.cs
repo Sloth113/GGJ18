@@ -17,13 +17,13 @@ public abstract class Tower : MonoBehaviour {
     public List<Tower> children;
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
         m_powerInput = 0;
         children = new List<Tower>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 		
 	}
 

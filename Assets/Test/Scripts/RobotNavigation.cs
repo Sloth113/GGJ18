@@ -32,7 +32,7 @@ public class RobotNavigation : MonoBehaviour {
             m_agent.destination = endDestination.transform.position;
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject == endDestination)
         {
@@ -41,7 +41,7 @@ public class RobotNavigation : MonoBehaviour {
         }
     }
 
-    void OnHit(int damage)
+    public void OnHit(int damage)
     {
         m_health -= damage;
         if (m_health <= 0)

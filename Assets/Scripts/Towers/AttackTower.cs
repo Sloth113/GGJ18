@@ -11,6 +11,10 @@ public class AttackTower : Tower {
     public float fireTime;  // Seconds between shots
     public float reloadProgress;    // How long reload is taking
 
+    public int damage;
+
+    public SphereCollider EnemyDetector;
+
     bool powered;
 
     bool shotReady;
@@ -19,13 +23,16 @@ public class AttackTower : Tower {
 
 
 	// Use this for initialization
-	void Start () {
+	protected override void Start () {
         shotReady = true;
         reloadProgress = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected override void Update () {
+
+        //TODO change based on scale? just make it big and check range elsewhere?
+        EnemyDetector.radius = range;
 
         // Calculate current rate of fire
         if(m_powerInput >= minPower)
@@ -54,5 +61,25 @@ public class AttackTower : Tower {
     public override List<Tower> GetConnections()
     {
         return new List<Tower>();
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        //TODO change this around when enemies tagged/actually made
+        RobotNavigation enemy = other.gameObject.GetComponent<RobotNavigation>();
+        if (enemy != null)
+        {
+            if (powered && shotReady)
+            {
+                ShootEnemy(enemy);
+            }
+        }
+    }
+
+    protected virtual void ShootEnemy(RobotNavigation enemy)
+    {
+        shotReady = false;
+        reloadProgress = 0;
+        Debug.Log("Shots fired");
     }
 }
