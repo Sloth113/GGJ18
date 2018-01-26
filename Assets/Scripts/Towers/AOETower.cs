@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AOETower : AttackTower {
 
+    public ParticleSystem blast;
+
     // Use this for initialization
     protected override void Start () {
 		
@@ -24,6 +26,10 @@ public class AOETower : AttackTower {
     void FireAOE()
     {
         Debug.Log("AOE fired");
+        // Set blastwave lifetime to fit range
+        blast.startLifetime = range / blast.startSpeed;
+        blast.Stop();
+        blast.Play();
         //TODO
     }
 
