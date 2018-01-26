@@ -15,7 +15,7 @@ public class RobotRotation : MonoBehaviour {
 	void Update () {
         transformAngle = transform.eulerAngles;
 
-        transformAngle.y += Mathf.Sin(Time.time) * Mathf.Rad2Deg;
+        transformAngle.y += Mathf.Sin(Time.deltaTime) * Mathf.Rad2Deg * 10;
         transform.eulerAngles = transformAngle;
 	}
 }

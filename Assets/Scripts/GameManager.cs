@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour {
     private bool m_roundStart = false;
     private int m_waveIndex = 0;
     private int m_spawnIndex = 0;
+    private bool m_building;
     private GameObject m_newestEnemy;
 
 
@@ -79,7 +80,7 @@ public class GameManager : MonoBehaviour {
             m_instance.towers = new List<Tower>();
             m_instance.m_waveInfo = new List<Wave>();
             m_enemiesInPlay = new List<GameObject>();
-
+            m_selectedTower = null;
             DontDestroyOnLoad(this.gameObject);
         }
         else if (GameManager.m_instance != this)
@@ -110,19 +111,17 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		switch (m_crurentState.Peek()) {
+        switch (m_crurentState.Peek()) {
+            
+
             case State.Title:
 
                 break;
             case State.InGame:
-                if (Input.GetKeyDown(KeyCode.M))
-                {
-                    LevelToOver();
-                }
                 //SPAWNER
                 if (!m_roundStart)
                 {
-                    if (Input.GetMouseButton(0))
+                    if (Input.GetMouseButtonDown(0))
                     {
                         m_roundStart = true;
                         m_spawnIndex = 0;
@@ -169,6 +168,89 @@ public class GameManager : MonoBehaviour {
                     m_enemiesInPlay.RemoveAll(item => item == null);
 
                 }
+
+                if(m_selectedTower != null)
+                {
+                    if (m_building)
+                    {
+                        m_selectedTower.transform.position = new Vector3(0, -1000, 0);
+                        //m_selectedTower.transform.position = GetMouseToGroundPlanePoint();
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            Vector3 mousePos = Input.mousePosition;
+                            Ray mouseRay = Camera.main.ScreenPointToRay(mousePos);
+                            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+                            RaycastHit hit;
+                           // int layerMask = 1 << 8;
+                           // layerMask = ~layerMask;
+                            if (Physics.SphereCast(mouseRay, 5, out hit, Mathf.Infinity,1, QueryTriggerInteraction.Collide)) {
+                              // if (Physics.SphereCast(mouseRay, 5, out hit)) { 
+                                Debug.Log(hit.transform.name);
+                                if (hit.transform.tag == "Ground")
+                                {
+                                    Vector3 castPoint = hit.point;
+
+                                    castPoint.y += (m_selectedTower.GetComponent<Renderer>().bounds.size.y / 2);
+                                    m_selectedTower.transform.position = castPoint;
+
+                                    m_selectedTower = null;
+                                }
+                                else
+                                {
+                                    Destroy(m_selectedTower.gameObject);
+                                    m_selectedTower = null;
+                                }
+                            }
+                            /*
+                            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                            RaycastHit trst;
+                            if (Physics.SphereCast(mouseRay, 5, out trst)){
+                                Debug.Log(trst.transform.tag);
+                            }
+
+                            RaycastHit[] hits = Physics.SphereCastAll(mouseRay, 5, Mathf.Infinity, LayerMask.NameToLayer("Tower"), QueryTriggerInteraction.UseGlobal);//Might need to change the 0 
+                            bool collided = false;
+                            Debug.Log(hits.Length);
+                            foreach (RaycastHit hit in hits)
+                            {
+                                //Check for collisions
+                                collided = true;
+                            }
+                            
+                            if (!collided)
+                            {
+                                m_selectedTower = null;
+                            }
+                            else
+                            {
+                                Destroy(m_selectedTower.gameObject);
+                                m_selectedTower = null;
+                            }*/
+                        }
+                    }
+                    else
+                    {
+                        //Set connections
+                        Debug.Log("SET UP CONNECTIONS");
+                    }
+                }
+                if (Input.GetMouseButtonDown(0) && m_selectedTower == null)
+                {
+                    //Select an in play tower
+                    Vector3 mousePos = Input.mousePosition;
+                    Ray mouseRay = Camera.main.ScreenPointToRay(mousePos);
+                    Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+                    RaycastHit hit;
+                    if (Physics.SphereCast(mouseRay, 5, out hit, Mathf.Infinity, 1 << 8, QueryTriggerInteraction.Collide))
+                    {
+                        //ONLY HIT TOWERS
+                        if (hit.transform.tag == "Tower")
+                        {
+                            m_selectedTower = hit.transform.gameObject;
+                        }
+                    }
+                }
+
                 
                 break;
             case State.Pause:
@@ -200,9 +282,12 @@ public class GameManager : MonoBehaviour {
         m_powerSource = powerSource;
         m_waveInfo = waveInfo;
         m_enemySpawn = enemySpawn;
+
+        m_crurentState.Push(State.InGame);
+        
     }
 
-    //
+    //Menu travesal
     public void MenuToLevelSelect()
     {
         m_titleMenuUI.SetActive(false);
@@ -224,7 +309,6 @@ public class GameManager : MonoBehaviour {
     {
         m_levelSelectUI.SetActive(false);
         m_inGameUI.SetActive(true);
-        m_crurentState.Push(State.InGame);
         //LOAD SCENE
         SceneManager.LoadScene(level);//level 1? 
     }
@@ -233,6 +317,7 @@ public class GameManager : MonoBehaviour {
         m_crurentState.Push(State.Pause);
         m_pauseMenuUI.SetActive(true);
         m_inGameUI.SetActive(false);
+        Time.timeScale = 0;
     }
     public void PauseToMenu()
     {
@@ -241,10 +326,12 @@ public class GameManager : MonoBehaviour {
         m_crurentState.Pop();//Pause
         m_crurentState.Pop();//Ingame
         SceneManager.LoadScene(0);
-        
+        Time.timeScale = 1;
+
     }
     public void PauseToInGame()
     {
+        Time.timeScale = 1;
         m_inGameUI.SetActive(true);
         m_pauseMenuUI.SetActive(false);
         m_crurentState.Pop();//Pause
@@ -287,6 +374,67 @@ public class GameManager : MonoBehaviour {
     {
         Application.Quit();
     }
+    //Tower build buttons
+    public void ExtendTower()
+    {
+        if (m_selectedTower == null)
+        {
+            m_selectedTower = Instantiate<GameObject>(m_extTower);
+            m_selectedTower.GetComponent<Tower>().enabled = false;
+            m_building = true;
+        }
+        else
+        {
+            Destroy(m_selectedTower.gameObject);
+            m_selectedTower = null;
+            m_building = false;
+        }
+    }
+    public void SplitterTower()
+    {
+        if (m_selectedTower == null)
+        {
+            m_selectedTower = Instantiate<GameObject>(m_spltTower);
+            m_selectedTower.GetComponent<Tower>().enabled = false;
+            m_building = true;
+        }
+        else
+        {
+            Destroy(m_selectedTower.gameObject);
+            m_selectedTower = null;
+            m_building = false;
+        }
+    }
+    public void AOETower()
+    {
+        if (m_selectedTower == null)
+        {
+            m_selectedTower = Instantiate<GameObject>(m_aoeTower);
+            m_selectedTower.GetComponent<Tower>().enabled = false;
+            m_building = true;
+        }
+        else
+        {
+            Destroy(m_selectedTower.gameObject);
+            m_selectedTower = null;
+            m_building = false;
+        }
+    }
+    public void GunTower()
+    {
+        if (m_selectedTower == null)
+        {
+            m_selectedTower = Instantiate<GameObject>(m_gunTower);
+            m_selectedTower.GetComponent<Tower>().enabled = false;
+            m_building = true;
+        }
+        else
+        {
+            Destroy(m_selectedTower.gameObject);
+            m_selectedTower = null;
+            m_building = false;
+        }
+    }
     //Andrews power graph stuff
     public void CalculatePowerGraph()
     {
@@ -305,5 +453,19 @@ public class GameManager : MonoBehaviour {
             tower.ResetPower();
         }
         source.AddPower(power);
+    }
+    private Vector3 GetMouseToGroundPlanePoint()
+    {
+
+        Vector3 mousePos = Input.mousePosition;
+        Ray mouseRay = Camera.main.ScreenPointToRay(mousePos);
+
+        Plane groundYPlane = new Plane(Vector3.up, Vector3.zero);
+        float rayDist = 0;
+
+        groundYPlane.Raycast(mouseRay, out rayDist);
+
+        Vector3 castPoint = mouseRay.GetPoint(rayDist);
+        return castPoint;
     }
 }
