@@ -672,7 +672,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 320643639}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1813850548}
+        m_MethodName: SplitterTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &320643639
@@ -1127,7 +1138,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 561729033}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1813850548}
+        m_MethodName: AOETower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &561729033
@@ -1372,7 +1394,7 @@ GameObject:
   - component: {fileID: 671724860}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1437,8 +1459,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 671724859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.0553055, y: 0.18064499, z: -4.0209713}
-  m_LocalScale: {x: 3.193429, y: 3.1934288, z: 3.1934288}
+  m_LocalPosition: {x: -2.0553, y: 0.18064499, z: -4.0209713}
+  m_LocalScale: {x: 13.228464, y: 13.228461, z: 13.228461}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -2112,7 +2134,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ATK
+  m_Text: GUN
 --- !u!222 &989440781
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2688,7 +2710,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1275245414}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1813850548}
+        m_MethodName: GunTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1275245414
@@ -3534,7 +3567,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1618693979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1813850548}
+        m_MethodName: ExtendTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1618693979
@@ -4086,10 +4130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d69dcb890c0d5c4c983920c0e3a18cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gunTower: {fileID: 0}
-  m_aoeTower: {fileID: 0}
-  m_extTower: {fileID: 0}
-  m_spltTower: {fileID: 0}
+  m_gunTower: {fileID: 1567858005361522, guid: cc523795229f69241901a4e9992356e4, type: 2}
+  m_aoeTower: {fileID: 1105519464279026, guid: 7593c84eaeac0064dba55cb6e869386a, type: 2}
+  m_extTower: {fileID: 1353368044208528, guid: 7519c4caa4a78a446978cf7cbcc24678, type: 2}
+  m_spltTower: {fileID: 1052865782308088, guid: 809553c240ba1a64dacc6b232ac504cd,
+    type: 2}
   m_speedyEnemy: {fileID: 1863579193958350, guid: 3203aef8767f18c40853c615a471b20b,
     type: 2}
   m_normalEnemy: {fileID: 1961231140668284, guid: 4256acdbb99b7c646b59abe0c3ae6dab,
@@ -4354,7 +4399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2067094625
 RectTransform:
   m_ObjectHideFlags: 0

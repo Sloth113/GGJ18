@@ -19,7 +19,7 @@ public class AttackTower : Tower {
 
     protected bool shotReady;
 
-    public float range;
+    public float range =10;
 
 
 	// Use this for initialization
