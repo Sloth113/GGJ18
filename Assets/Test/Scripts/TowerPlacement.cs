@@ -26,29 +26,32 @@ public class TowerPlacement : MonoBehaviour
 
         if (towerNotPlaced == true)
         {
-            Vector3 mouseCast = towerAtMousePosition();
-            if (Input.GetMouseButtonDown(0))
-            {
-                mouseCast.y += (towerPrefabs[0].GetComponent<Renderer>().bounds.size.y/2);
-                Instantiate(towerPrefabs[0], mouseCast, Quaternion.identity);
-                towerNotPlaced = false;
-            }
+            towerAtMousePosition(towerPrefabs[0]);
         }
     }
 
     // Function to check the position 
-    private Vector3 towerAtMousePosition()
+    private void towerAtMousePosition(GameObject towerPrefab)
     {
         Vector3 mousePos = Input.mousePosition;
         Ray mouseRay = Camera.main.ScreenPointToRay(mousePos);
         Plane groundPlane = new Plane(Vector3.up, groundTransform.position);
+        RaycastHit hit;
 
-        float rayDistance = 0;
+        //float rayDistance = 0;
 
-        groundPlane.Raycast(mouseRay, out rayDistance);
-        Vector3 castPoint = mouseRay.GetPoint(rayDistance);
+        //groundPlane.Raycast(mouseRay, out rayDistance);
 
-        return castPoint;
+        if (Physics.Raycast(mouseRay, out hit))
+            if (Input.GetMouseButtonDown(0) && hit.transform.tag == "Ground")
+            {
+                Vector3 castPoint = hit.point;
+
+                castPoint.y += (towerPrefab.GetComponent<Renderer>().bounds.size.y / 2);
+                Instantiate(towerPrefab, castPoint, Quaternion.identity);
+                towerNotPlaced = false;
+            }
+
     }
 
 }
