@@ -42,8 +42,8 @@ public class TowerPlacement : MonoBehaviour
 
         //groundPlane.Raycast(mouseRay, out rayDistance);
 
-        if (Physics.Raycast(mouseRay, out hit))
-            if (Input.GetMouseButtonDown(0) && hit.transform.tag == "Ground")
+        if (Physics.SphereCast(mouseRay, 5, out hit))
+            if (Input.GetMouseButtonDown(0) && hit.transform.tag != "Untagged")
             {
                 Vector3 castPoint = hit.point;
 
