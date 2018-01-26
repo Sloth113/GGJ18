@@ -194,11 +194,13 @@ public class GameManager : MonoBehaviour {
                                     m_selectedTower.transform.position = castPoint;
 
                                     m_selectedTower = null;
+                                    m_building = false;
                                 }
                                 else
                                 {
                                     Destroy(m_selectedTower.gameObject);
                                     m_selectedTower = null;
+                                    m_building = false;
                                 }
                             }
                             /*

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33652646631836050}
   - component: {fileID: 136413056448967824}
   - component: {fileID: 23716325265234860}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 23026782382394142}
   - component: {fileID: 114015862787852374}
   - component: {fileID: 135295222560313864}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a952946ce9bb444b765dcb9fa275e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_powerInput: 0
   visited: 0
   inStack: 0
   children: []
@@ -177,6 +178,11 @@ MonoBehaviour:
   damage: 30
   EnemyDetector: {fileID: 135295222560313864}
   range: 5
+  laser: {fileID: 0}
+  laserOrigin: {fileID: 0}
+  laserDisplayTime: 0.2
+  laserTimer: 0
+  laserShowing: 0
 --- !u!135 &135295222560313864
 SphereCollider:
   m_ObjectHideFlags: 1
