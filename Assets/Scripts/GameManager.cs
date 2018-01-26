@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
     public PowerSource source;
     private GameObject m_powerSource;
     public List<Tower> towers;
+    private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
     private Transform m_enemySpawn;
 
@@ -305,5 +306,10 @@ public class GameManager : MonoBehaviour {
             tower.ResetPower();
         }
         source.AddPower(power);
+    }
+
+    public void SetDirtyPower()
+    {
+        powerDirty = true;
     }
 }
