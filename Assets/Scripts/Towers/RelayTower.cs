@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RelayTower : Tower {
+public class RelayTower : Tower, IConnector
+{
 
     public Tower child;
+
+    [SerializeField] float connectionRange;
 
     public override List<Tower> GetConnections()
     {
@@ -16,6 +19,19 @@ public class RelayTower : Tower {
         return children;
     }
 
+    public bool MakeConnection(Tower target)
+    {
+        bool success = false;
+        // Check if target in range
+        Vector3 displacement = target.transform.position - transform.position;
+        if(displacement.sqrMagnitude <= connectionRange * connectionRange)
+        {
+            child = target;
+            success = true;
+        }
+        return success;
+    }
+
     // Use this for initialization
     protected override void Start () {
 		
@@ -25,4 +41,5 @@ public class RelayTower : Tower {
     protected override void Update () {
 		
 	}
+
 }

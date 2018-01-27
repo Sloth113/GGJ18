@@ -2,28 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JunctionTower : Tower {
+public class JunctionTower : Tower, IConnector {
 
-    public Tower connection1;
-    public Tower connection2;
+
+    public Tower[] connections;
+    public int nextConnection;  // Index for next connection to change
+    [SerializeField] float connectionRange;
 
     public override List<Tower> GetConnections()
     {
         List<Tower> children = new List<Tower>();
-        if (connection1 != null)
+        if (connections[0] != null)
         {
-            children.Add(connection1);
+            children.Add(connections[0]);
         }
-        if (connection2 != null)
+        if (connections[1] != null)
         {
-            children.Add(connection2);
+            children.Add(connections[1]);
         }
         return children;
     }
 
+    public bool MakeConnection(Tower target)
+    {
+        bool success = false;
+        // Check if target in range
+        Vector3 displacement = target.transform.position - transform.position;
+        if (displacement.sqrMagnitude <= connectionRange * connectionRange)
+        {
+            connections[nextConnection] = target;
+            nextConnection = 1 - nextConnection;    // Toggle between 0 and 1
+            success = true;
+        }
+        return success;
+    }
+
     // Use this for initialization
     protected override void Start () {
-		
+        base.Start();
+        connections = new Tower[2];
+        nextConnection = 0;
 	}
 
     // Update is called once per frame

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour {
 
+    public float cost; // Power cost to build
     [SerializeField]protected float m_powerInput;
 
     public float powerInput { get { return m_powerInput; } }

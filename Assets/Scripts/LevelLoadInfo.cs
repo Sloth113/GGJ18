@@ -20,9 +20,10 @@ public class LevelLoadInfo : MonoBehaviour {
     public List<Wave> waveInfo;
     public GameObject powerSource;
     public Transform enemySpawn;
+    public float maxPower;
     // Use this for initialization
     void Start () {
-        GameManager.Instance.LoadLevel(powerSource, enemySpawn, waveInfo);
+        GameManager.Instance.LoadLevel(this);
 	}
 	
 	// Update is called once per frame
