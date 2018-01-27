@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour {
     public GameObject m_levelSelectUI;
     public GameObject m_pauseMenuUI;
     public GameObject m_inGameUI;
+    public GameObject m_inGameStart;
     public GameObject m_settingsUI;
     public GameObject m_overUI;
     public GameObject m_overDead;
@@ -130,17 +131,14 @@ public class GameManager : MonoBehaviour {
 
                 break;
             case State.InGame:
-                //SPAWNER
-                if (!m_roundStart)
+
+                if (m_deleteWait)
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        m_roundStart = true;
-                        m_spawnIndex = 0;
-                        m_waveIndex = 0;
-                    }
+                    m_selectedTower = null;
+                    m_deleteWait = false;
                 }
-                else
+                //SPAWNER
+                if (m_roundStart)
                 {
                     if (m_waveIndex < m_waveInfo.Count)
                     {
@@ -256,13 +254,14 @@ public class GameManager : MonoBehaviour {
                         Tower l_selectedTower = m_selectedTower.GetComponent<Tower>();
                         Tower mouseoverTower = GetTowerUnderMouse();
                         //Set connections
-                        if (Input.GetMouseButtonDown(0))
+                        if (Input.GetMouseButtonUp(0))
                         {
                             if (mouseoverTower == null)
                             {
                                 // Unselect tower if clicking elsewhere on map
                                 m_deleteWait = true;
-                                
+
+
                             } else
                             {
                                 if(l_selectedTower is IConnector && mouseoverTower != l_selectedTower)
@@ -277,6 +276,7 @@ public class GameManager : MonoBehaviour {
                                 }
                             }
                         }
+                        
                     }
                 } else if (Input.GetMouseButtonDown(0))
                 {
@@ -300,11 +300,6 @@ public class GameManager : MonoBehaviour {
                 {
                     UpdatePowerGraph();
                 }
-                if(m_deleteWait)
-                {
-                    m_selectedTower = null;
-                    m_deleteWait = false;
-                }
                 
                 break;
             case State.Pause:
@@ -321,6 +316,8 @@ public class GameManager : MonoBehaviour {
         }
 
     }
+
+   
 
     public void LoadLevel(LevelLoadInfo level)
     {
@@ -340,6 +337,7 @@ public class GameManager : MonoBehaviour {
         UpdatePowerGraph();
         m_waveInfo = level.waveInfo;
         m_enemySpawn = level.enemySpawn;
+        m_inGameStart.SetActive(true);
 
         m_crurentState.Push(State.InGame);
         
@@ -502,6 +500,7 @@ public class GameManager : MonoBehaviour {
     //
     public void DeleteTower()
     {
+        Debug.Log(m_selectedTower);
         if (m_selectedTower != null)
         {
             if (!m_building)
@@ -514,6 +513,15 @@ public class GameManager : MonoBehaviour {
             }
             Destroy(m_selectedTower.gameObject);
         }
+    }
+
+    public void StartWaves()
+    {
+        m_inGameStart.SetActive(false);
+            m_roundStart = true;
+            m_spawnIndex = 0;
+            m_waveIndex = 0;
+        
     }
 
     //Andrews power graph stuff
