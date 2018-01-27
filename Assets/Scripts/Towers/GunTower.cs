@@ -31,7 +31,7 @@ public class GunTower : AttackTower {
         }
 	}
 
-    protected override void ShootEnemy(RobotNavigation enemy)
+    public override void ShootEnemy(RobotNavigation enemy)
     {
         shotReady = false;
         reloadProgress = 0;

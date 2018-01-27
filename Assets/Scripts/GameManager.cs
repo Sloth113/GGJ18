@@ -535,7 +535,7 @@ public class GameManager : MonoBehaviour {
         Ray mouseRay = Camera.main.ScreenPointToRay(mousePos);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         RaycastHit hit;
-        if (Physics.SphereCast(mouseRay, 5, out hit, Mathf.Infinity, 1 << 8, QueryTriggerInteraction.Collide))
+        if (Physics.Raycast(mouseRay, out hit, Mathf.Infinity, 1 << 8, QueryTriggerInteraction.Ignore))
         {
             hitTower = hit.collider.gameObject.GetComponent<Tower>();
         }

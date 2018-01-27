@@ -24,6 +24,9 @@ public class AttackTower : Tower {
 
     protected bool shotReady;
 
+    public bool Powered {get{ return powered; }}
+    public bool ShotReady { get { return shotReady; } }
+
     public float range =10;
 
 
@@ -71,20 +74,9 @@ public class AttackTower : Tower {
         return new List<Tower>();
     }
 
-    public void OnTriggerStay(Collider other)
-    {
-        //TODO change this around when enemies tagged/actually made
-        RobotNavigation enemy = other.gameObject.GetComponent<RobotNavigation>();
-        if (enemy != null)
-        {
-            if (powered && shotReady)
-            {
-                ShootEnemy(enemy);
-            }
-        }
-    }
+   
 
-    protected virtual void ShootEnemy(RobotNavigation enemy)
+    public virtual void ShootEnemy(RobotNavigation enemy)
     {
         enemy.OnHit(damage);
     }
