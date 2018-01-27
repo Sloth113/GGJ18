@@ -653,6 +653,7 @@ public class GameManager : MonoBehaviour {
         SupplyPower(power);
         powerDirty = false;
         currentPowerReq = m_powerSource.GetComponent<PowerSource>().GetPowerReq();
+        attackTowers.RemoveAll(item => item == null);
     }
 
     public void CalculatePowerGraph()
