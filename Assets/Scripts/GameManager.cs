@@ -147,11 +147,10 @@ public class GameManager : MonoBehaviour {
                     if (m_waveIndex < m_waveInfo.Count)
                     {
                         //Round started
-                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer && m_spawnIndex < m_waveInfo[m_waveIndex].spawnOrder.Count)
+                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer)
                         {
                             //Spawn the thing
                             m_spawnTimer = 0;
-                           // Debug.Log("WAVE: " + m_waveIndex + " SPAWN:" + m_spawnIndex);
                             if (m_waveInfo[m_waveIndex].spawnOrder[m_spawnIndex] == Enemies.Normal)
                                 m_newestEnemy = Instantiate<GameObject>(m_normalEnemy, m_enemySpawn.position, Quaternion.identity);
                             else if (m_waveInfo[m_waveIndex].spawnOrder[m_spawnIndex] == Enemies.Speedy)
@@ -162,21 +161,19 @@ public class GameManager : MonoBehaviour {
                             m_spawnIndex++;
                             m_enemiesInPlay.Add(m_newestEnemy);
                             m_newestEnemy.GetComponent<RobotNavigation>().endDestination = m_powerSource;
-                            
+                            //put wave count in here 
+                            if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
+                            {
+                                m_waveIndex++;
+                                m_spawnIndex = 0;
+                            }
                         }
                         else
                         {
                             //increase spawn timer
                             m_spawnTimer += Time.deltaTime;
                         }
-                        //put wave count in here 
-                        if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
-                        {
-                            m_waveIndex++;
-                            m_spawnIndex = 0;
-                        }
-                    }
-                    else if(m_enemiesInPlay.Count <= 0)
+                    }else if(m_enemiesInPlay.Count <= 0)
                     {
                         //All enemies dead and finished spawning
                         LevelToOver();
@@ -323,10 +320,7 @@ public class GameManager : MonoBehaviour {
                 if (xyzzy)
                 {
                     xyzzyCountdown -= Time.deltaTime;
-                    foreach (GameObject enemy in m_enemiesInPlay)
-                    {
-                        enemy.GetComponent<RobotNavigation>().OnHit(1);
-                    }
+                    
                     if (xyzzyCountdown <= 0)
                     {
                         xyzzy = false;
@@ -528,15 +522,13 @@ public class GameManager : MonoBehaviour {
         {
             if (!m_building)
             {
-                //Give code
-                power += m_selectedTower.GetComponent<Tower>().cost / 2;
                 towers.Remove(m_selectedTower.GetComponent<Tower>());
                 SetDirtyPower();
             } else
             {
                 m_building = false;
             }
-            DestroyImmediate(m_selectedTower.gameObject);
+            Destroy(m_selectedTower.gameObject);
         }
     }
 

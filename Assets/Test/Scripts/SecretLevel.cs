@@ -9,11 +9,15 @@ public class SecretLevel : MonoBehaviour {
     public AOETower aoe;
     public GunTower gun;
 
+    public Animator chickAnimator;
+
+    float sceneTime;
+
     bool started = false;
 
 	// Use this for initialization
 	void Start () {
-        
+        sceneTime = 0;
 	}
 	
 	// Update is called once per frame
@@ -26,6 +30,18 @@ public class SecretLevel : MonoBehaviour {
             source.AddPower(60);
             started = true;
         }
+
+        sceneTime += Time.deltaTime;
+
+        if(sceneTime >= 3.0f)
+        {
+            chickAnimator.SetTrigger("face_camera");
+        }
+        if (sceneTime >= 5.0f)
+        {
+            GameManager.Instance.unxyxxy();
+        }
+
         if (Input.GetButtonDown("Cancel"))
         {
             GameManager.Instance.unxyxxy();
