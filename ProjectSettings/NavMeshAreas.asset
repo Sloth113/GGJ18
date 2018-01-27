@@ -11,9 +11,9 @@ NavMeshProjectSettings:
     cost: 1
   - name: Jump
     cost: 2
-  - name: 
+  - name: LeftPath
     cost: 1
-  - name: 
+  - name: RightPath
     cost: 1
   - name: 
     cost: 1

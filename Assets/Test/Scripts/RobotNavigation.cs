@@ -10,10 +10,11 @@ public class RobotNavigation : MonoBehaviour {
     [SerializeField] private int m_maxHealth = 1;
     [SerializeField] private int m_power = 1;
     [SerializeField] private int m_damageOutput = 2;
+    [SerializeField] private int m_health;
 
     private NavMeshAgent m_agent;
-    [SerializeField]
-    private int m_health;
+    private Tower m_newTower;
+
     private bool m_alive;
 
     public GameObject endDestination;
@@ -29,6 +30,13 @@ public class RobotNavigation : MonoBehaviour {
         m_agent.speed = m_speed;
         if (endDestination != null)
             m_agent.destination = endDestination.transform.position;
+        foreach(Tower newTower in GameManager.Instance.towers)
+        {
+            if (newTower.transform.position.x >= -100)
+                m_agent.SetAreaCost(4, m_agent.GetAreaCost(4) + 1);
+            else if (newTower.transform.position.y < -100)
+                m_agent.SetAreaCost(3, m_agent.GetAreaCost(3) + 1);
+        }
 
     }
 
@@ -47,12 +55,23 @@ public class RobotNavigation : MonoBehaviour {
                     OnDeath();
                 }
             }
-        } else
+        }
+        else
         {
             if (!deathEffect.IsAlive())
             {
                 Destroy(gameObject);
             }
+        }
+        if(GameManager.Instance.towerListChange == true)
+        {
+            GameManager.Instance.towerListChange = false;
+            int newTowerIndex = GameManager.Instance.towers.Count;
+            m_newTower = GameManager.Instance.towers[newTowerIndex - 1];
+            if (m_newTower.transform.position.x >= -100)
+                m_agent.SetAreaCost(4, m_agent.GetAreaCost(4) + 1);
+            else if (m_newTower.transform.position.y < -100)
+                m_agent.SetAreaCost(3, m_agent.GetAreaCost(3) + 1);
         }
     }
 

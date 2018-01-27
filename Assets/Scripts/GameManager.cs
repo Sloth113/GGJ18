@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour {
     public float power;
     public float maxPower;
     public List<Tower> towers;
+    public bool towerListChange = false;
     private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
     private Transform m_enemySpawn;
@@ -213,6 +214,7 @@ public class GameManager : MonoBehaviour {
                                     m_selectedTower.GetComponent<Tower>().enabled = true;
                                     // Add tower to list
                                     towers.Add(m_selectedTower.GetComponent<Tower>());
+                                    towerListChange = true;
                                     // Subtract cost of building
                                     power = Mathf.Max(0, power - m_selectedTower.GetComponent<Tower>().cost);
                                     SetDirtyPower();
