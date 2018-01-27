@@ -503,7 +503,7 @@ public class GameManager : MonoBehaviour {
     public void DeleteTower()
     {
         Debug.Log(m_selectedTower);
-        if (m_selectedTower != null)
+        if (m_selectedTower != null && m_selectedTower != m_powerSource)
         {
             if (!m_building)
             {
@@ -513,7 +513,7 @@ public class GameManager : MonoBehaviour {
             {
                 m_building = false;
             }
-            Destroy(m_selectedTower.gameObject);
+            DestroyImmediate(m_selectedTower.gameObject);
         }
     }
 
