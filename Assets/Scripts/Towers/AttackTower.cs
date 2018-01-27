@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AttackTower : Tower {
+
+    [SerializeField]
+    protected AudioClip m_fireAudioClip;
+    protected AudioSource m_audioSource;
 
     public float minPower;
     public float maxPower;
@@ -27,6 +32,7 @@ public class AttackTower : Tower {
         base.Start();
         shotReady = true;
         reloadProgress = 0;
+        m_audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
