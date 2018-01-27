@@ -14509,6 +14509,7 @@ MonoBehaviour:
     waveCooldown: 5
   powerSource: {fileID: 1735494029}
   enemySpawn: {fileID: 963033751}
+  maxPower: 50
 --- !u!114 &1749790549
 MonoBehaviour:
   m_ObjectHideFlags: 0

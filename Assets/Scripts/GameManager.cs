@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour {
     private Transform m_enemySpawn;
 
     //Input
-    private GameObject m_selectedTower;
+    [SerializeField]private GameObject m_selectedTower;
     private bool m_connect;
 
     //State and other 
@@ -239,27 +239,39 @@ public class GameManager : MonoBehaviour {
                             }*/
                         }
                     }
-                    else
+                    else 
                     {
+                        Tower selectedTower = m_selectedTower.GetComponent<Tower>();
+                        Tower mouseoverTower = GetTowerUnderMouse();
                         //Set connections
-                        Debug.Log("SET UP CONNECTIONS");
-                        //TODO set dirty flag
-                    }
-                }
-                if (Input.GetMouseButtonDown(0) && m_selectedTower == null)
-                {
-                    //Select an in play tower
-                    Vector3 mousePos = Input.mousePosition;
-                    Ray mouseRay = Camera.main.ScreenPointToRay(mousePos);
-                    Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-                    RaycastHit hit;
-                    if (Physics.SphereCast(mouseRay, 5, out hit, Mathf.Infinity, 1 << 8, QueryTriggerInteraction.Collide))
-                    {
-                        //ONLY HIT TOWERS
-                        if (hit.transform.tag == "Tower")
+                        if (Input.GetMouseButtonDown(0))
                         {
-                            m_selectedTower = hit.transform.gameObject;
+                            if (mouseoverTower == null)
+                            {
+                                // Unselect tower if clicking elsewhere on map
+                                m_selectedTower = null;
+                            } else
+                            {
+                                if(selectedTower is IConnector && mouseoverTower != selectedTower)
+                                {
+                                    // Try making connection
+                                    if((selectedTower as IConnector).MakeConnection(mouseoverTower))
+                                    {
+                                        // If connection succeeds, unselect tower and make power dirty
+                                        m_selectedTower = null;
+                                        SetDirtyPower();
+                                    }
+                                }
+                            }
                         }
+                    }
+                } else if (Input.GetMouseButtonDown(0))
+                {
+                    // Select clicked tower
+                    Tower newSelection = GetTowerUnderMouse();
+                    if(newSelection != null)
+                    {
+                        m_selectedTower = newSelection.gameObject;
                     }
                 }
 
@@ -395,16 +407,19 @@ public class GameManager : MonoBehaviour {
     {
         Application.Quit();
     }
+
+
     //Tower build buttons
     public void ExtendTower()
     {
-        if (m_selectedTower == null)
+        float cost = m_extTower.GetComponent<Tower>().cost;
+        if (m_selectedTower == null && cost <= power)
         {
             m_selectedTower = Instantiate<GameObject>(m_extTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
-        else
+        else if(m_building)
         {
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
@@ -413,13 +428,14 @@ public class GameManager : MonoBehaviour {
     }
     public void SplitterTower()
     {
-        if (m_selectedTower == null)
+        float cost = m_spltTower.GetComponent<Tower>().cost;
+        if (m_selectedTower == null && cost <= power)
         {
             m_selectedTower = Instantiate<GameObject>(m_spltTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
-        else
+        else if(m_building)
         {
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
@@ -428,13 +444,14 @@ public class GameManager : MonoBehaviour {
     }
     public void AOETower()
     {
-        if (m_selectedTower == null)
+        float cost = m_aoeTower.GetComponent<Tower>().cost;
+        if (m_selectedTower == null && cost <= power)
         {
             m_selectedTower = Instantiate<GameObject>(m_aoeTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
-        else
+        else if (m_building)
         {
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
@@ -443,13 +460,14 @@ public class GameManager : MonoBehaviour {
     }
     public void GunTower()
     {
-        if (m_selectedTower == null)
+        float cost = m_gunTower.GetComponent<Tower>().cost;
+        if (m_selectedTower == null && cost <= power)
         {
             m_selectedTower = Instantiate<GameObject>(m_gunTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
-        else
+        else if (m_building)
         {
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
@@ -503,5 +521,21 @@ public class GameManager : MonoBehaviour {
 
         Vector3 castPoint = mouseRay.GetPoint(rayDist);
         return castPoint;
+    }
+
+    // Returns the tower under the mouse, or null if none found
+    public Tower GetTowerUnderMouse()
+    {
+        Tower hitTower = null;
+        Vector3 mousePos = Input.mousePosition;
+        Ray mouseRay = Camera.main.ScreenPointToRay(mousePos);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        RaycastHit hit;
+        if (Physics.SphereCast(mouseRay, 5, out hit, Mathf.Infinity, 1 << 8, QueryTriggerInteraction.Collide))
+        {
+            hitTower = hit.collider.gameObject.GetComponent<Tower>();
+        }
+
+        return hitTower;
     }
 }
