@@ -13035,7 +13035,7 @@ MonoBehaviour:
     waveCooldown: 2
   - spawnOrder: 0200000002000000010000000100000000000000
     spawnTimer: 1.5
-    waveCooldown: 5
+    waveCooldown: 30
   - spawnOrder: 02000000020000000100000001000000020000000000000000000000
     spawnTimer: 1.5
     waveCooldown: 5
