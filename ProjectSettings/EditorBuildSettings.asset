@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/LevelFour.unity
     guid: 7520f8af1c63cf44b8b061b2221b3b0d
+  - enabled: 1
+    path: Assets/Levels/secret.unity
+    guid: e743fb2b265f4684aae60a743b5a1fd0
