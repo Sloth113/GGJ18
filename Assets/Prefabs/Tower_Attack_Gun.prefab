@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a952946ce9bb444b765dcb9fa275e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  cost: 20
   m_powerInput: 0
   visited: 0
   inStack: 0
@@ -430,8 +430,8 @@ MonoBehaviour:
   rotationRate: 0
   beams: []
   m_fireAudioClip: {fileID: 0}
-  minPower: 1
-  maxPower: 10
+  minPower: 20
+  maxPower: 50
   minROF: 0.5
   maxROF: 2
   fireTime: 0

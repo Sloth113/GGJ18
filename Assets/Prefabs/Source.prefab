@@ -247,4 +247,4 @@ MonoBehaviour:
   rotationRate: 0
   beams: []
   child: {fileID: 0}
-  connectionRange: 60
+  connectionRange: 100
