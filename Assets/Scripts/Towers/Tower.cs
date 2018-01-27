@@ -21,6 +21,8 @@ public abstract class Tower : MonoBehaviour {
 
     public GameObject beamEndpoint;
 
+    public GameObject selectionPlane;
+
     public List<ConnectionParticleBeam> beams;
 
 	// Use this for initialization
@@ -34,7 +36,10 @@ public abstract class Tower : MonoBehaviour {
 
         if(GameManager.Instance.selectedTower == gameObject)
         {
-            // TODO turn on selection effect
+            selectionPlane.SetActive(true);
+        } else
+        {
+            selectionPlane.SetActive(false);
         }
         // Manage connection beams
         HashSet<Tower> beamTargets = new HashSet<Tower>(children);
