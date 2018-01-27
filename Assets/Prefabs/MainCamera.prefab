@@ -57,6 +57,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4738619994293170}
+  - component: {fileID: 114668158764498166}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: Untagged
@@ -220,6 +221,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 664267f58ebf86f489e4114308e701d9, type: 2}
+--- !u!114 &114668158764498166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1368506222633904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a652d0b5b2eedca4ea7e285931443309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newMusic: {fileID: 8300000, guid: 987889fb275508d4f93b361c799d9cbf, type: 3}
 --- !u!124 &124603342579505550
 Behaviour:
   m_ObjectHideFlags: 1
