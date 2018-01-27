@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour {
         InGame,
         Pause,
         Settings,
-        GameOver
+        GameOver,
+        Chicken
     }
     //Singleton approach
     private static GameManager m_instance = null;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour {
     public GameObject m_aoeTower;
     public GameObject m_extTower;
     public GameObject m_spltTower;
+    public GameObject blast;
 
     //Enemy prefabs
     public GameObject m_speedyEnemy;
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour {
     public float maxPower;
     public List<Tower> towers;
     public bool towerListChange = false;
+    private float chickenCountdown;
+    private bool chicken;
     private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
     private Transform m_enemySpawn;
@@ -319,6 +323,18 @@ public class GameManager : MonoBehaviour {
             case State.GameOver:
 
                 break;
+            case State.Chicken:
+                if (chicken)
+                {
+                    chickenCountdown -= Time.deltaTime;
+
+                    if(chickenCountdown <= 0)
+                    {
+                        chicken = false;
+                        SceneManager.LoadScene("secret");
+                    }
+                }
+                break;
             default:
                 break;       
         }
@@ -439,6 +455,37 @@ public class GameManager : MonoBehaviour {
         Application.Quit();
     }
 
+
+    public void xyxxy(Tower grue)
+    {
+        m_inGameUI.SetActive(false);
+        m_crurentState.Pop();
+        m_crurentState.Push(State.Chicken);
+        GameObject beam5 = Object.Instantiate(grue.particleBeam);
+        beam5.GetComponent<ConnectionParticleBeam>().target = source;
+        beam5.GetComponent<ConnectionParticleBeam>().parent = grue;
+        beam5.GetComponent<ConnectionParticleBeam>().Orient();
+        chickenCountdown = 5;
+        chicken = true;
+        foreach(Tower t in towers)
+        {
+            if (t.inStack)
+            {
+                Object.Instantiate(blast, t.beamEndpoint.transform);
+            }
+        }
+        foreach(GameObject enemy in m_enemiesInPlay)
+        {
+            enemy.GetComponent<RobotNavigation>().OnHit(200);
+        }
+    }
+
+    public void unxyxxy()
+    {
+        m_titleMenuUI.SetActive(true);
+        m_crurentState.Pop();
+        SceneManager.LoadScene(0);
+    }
 
     //Tower build buttons
     public void ExtendTower()
@@ -603,4 +650,5 @@ public class GameManager : MonoBehaviour {
 
         return hitTower;
     }
+
 }
