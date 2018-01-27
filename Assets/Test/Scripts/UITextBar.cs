@@ -29,7 +29,16 @@ public class UITextBar : MonoBehaviour {
 
         if (powerCounterText != null)
         {
-            powerCounterText.text = "" + GameManager.Instance.power.ToString();
+            if(GameManager.Instance.currentPowerReq > GameManager.Instance.power)
+            {
+                powerCounterText.color = Color.red;
+            }
+            else
+            {
+                powerCounterText.color = Color.green;
+            }
+            //powerCounterText.text = "" + GameManager.Instance.power.ToString() + "-" + GameManager.Instance.currentPowerReq.ToString();
+            powerCounterText.text = "" +(GameManager.Instance.power-GameManager.Instance.currentPowerReq).ToString();
         }
         if (health != null && healthCounterText != null)
         {

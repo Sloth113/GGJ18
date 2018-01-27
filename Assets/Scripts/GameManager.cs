@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour {
     public GameObject m_overDead;
     public GameObject m_overWin;
     public GameObject m_eventSystem;
+    
 
     //Enemies in game stuff
     private List<GameObject> m_enemiesInPlay;
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour {
     private int m_spawnIndex = 0;
     private bool m_building;
     private GameObject m_newestEnemy;
+    public float currentPowerReq;
 
 
     void Awake()
@@ -512,7 +514,10 @@ public class GameManager : MonoBehaviour {
             if (!m_building)
             {
                 //Give code
+                if(m_roundStart)
                 power += m_selectedTower.GetComponent<Tower>().cost / 2;
+                else
+                    power += m_selectedTower.GetComponent<Tower>().cost;
                 towers.Remove(m_selectedTower.GetComponent<Tower>());
                 SetDirtyPower();
             } else
@@ -539,6 +544,7 @@ public class GameManager : MonoBehaviour {
         CalculatePowerGraph();
         SupplyPower(power);
         powerDirty = false;
+        currentPowerReq = m_powerSource.GetComponent<PowerSource>().GetPowerReq();
     }
 
     public void CalculatePowerGraph()
