@@ -11,8 +11,7 @@ public class GameManager : MonoBehaviour {
         InGame,
         Pause,
         Settings,
-        GameOver,
-        _
+        GameOver
     }
     //Singleton approach
     private static GameManager m_instance = null;
@@ -34,7 +33,6 @@ public class GameManager : MonoBehaviour {
     public GameObject m_aoeTower;
     public GameObject m_extTower;
     public GameObject m_spltTower;
-    public GameObject blast;
 
     //Enemy prefabs
     public GameObject m_speedyEnemy;
@@ -46,9 +44,8 @@ public class GameManager : MonoBehaviour {
     private GameObject m_powerSource;
     public float power;
     public float maxPower;
-    private float xyzzyCountdown;
-    private bool xyzzy;
     public List<Tower> towers;
+    public bool towerListChange = false;
     private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
     private Transform m_enemySpawn;
@@ -75,6 +72,7 @@ public class GameManager : MonoBehaviour {
     public GameObject m_overDead;
     public GameObject m_overWin;
     public GameObject m_eventSystem;
+    
 
     //Enemies in game stuff
     private List<GameObject> m_enemiesInPlay;
@@ -84,6 +82,7 @@ public class GameManager : MonoBehaviour {
     private int m_spawnIndex = 0;
     private bool m_building;
     private GameObject m_newestEnemy;
+    public float currentPowerReq;
 
 
     void Awake()
@@ -147,10 +146,11 @@ public class GameManager : MonoBehaviour {
                     if (m_waveIndex < m_waveInfo.Count)
                     {
                         //Round started
-                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer)
+                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer && m_spawnIndex < m_waveInfo[m_waveIndex].spawnOrder.Count)
                         {
                             //Spawn the thing
                             m_spawnTimer = 0;
+                           // Debug.Log("WAVE: " + m_waveIndex + " SPAWN:" + m_spawnIndex);
                             if (m_waveInfo[m_waveIndex].spawnOrder[m_spawnIndex] == Enemies.Normal)
                                 m_newestEnemy = Instantiate<GameObject>(m_normalEnemy, m_enemySpawn.position, Quaternion.identity);
                             else if (m_waveInfo[m_waveIndex].spawnOrder[m_spawnIndex] == Enemies.Speedy)
@@ -161,19 +161,21 @@ public class GameManager : MonoBehaviour {
                             m_spawnIndex++;
                             m_enemiesInPlay.Add(m_newestEnemy);
                             m_newestEnemy.GetComponent<RobotNavigation>().endDestination = m_powerSource;
-                            //put wave count in here 
-                            if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
-                            {
-                                m_waveIndex++;
-                                m_spawnIndex = 0;
-                            }
+                            
                         }
                         else
                         {
                             //increase spawn timer
                             m_spawnTimer += Time.deltaTime;
                         }
-                    }else if(m_enemiesInPlay.Count <= 0)
+                        //put wave count in here 
+                        if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
+                        {
+                            m_waveIndex++;
+                            m_spawnIndex = 0;
+                        }
+                    }
+                    else if(m_enemiesInPlay.Count <= 0)
                     {
                         //All enemies dead and finished spawning
                         LevelToOver();
@@ -214,6 +216,7 @@ public class GameManager : MonoBehaviour {
                                     m_selectedTower.GetComponent<Tower>().enabled = true;
                                     // Add tower to list
                                     towers.Add(m_selectedTower.GetComponent<Tower>());
+                                    towerListChange = true;
                                     // Subtract cost of building
                                     power = Mathf.Max(0, power - m_selectedTower.GetComponent<Tower>().cost);
                                     SetDirtyPower();
@@ -316,18 +319,6 @@ public class GameManager : MonoBehaviour {
             case State.GameOver:
 
                 break;
-            case State._:
-                if (xyzzy)
-                {
-                    xyzzyCountdown -= Time.deltaTime;
-                    
-                    if (xyzzyCountdown <= 0)
-                    {
-                        xyzzy = false;
-                        SceneManager.LoadScene("secret");
-                    }
-                }
-            break;
             default:
                 break;       
         }
@@ -522,13 +513,18 @@ public class GameManager : MonoBehaviour {
         {
             if (!m_building)
             {
+                //Give code
+                if(m_roundStart)
+                power += m_selectedTower.GetComponent<Tower>().cost / 2;
+                else
+                    power += m_selectedTower.GetComponent<Tower>().cost;
                 towers.Remove(m_selectedTower.GetComponent<Tower>());
                 SetDirtyPower();
             } else
             {
                 m_building = false;
             }
-            Destroy(m_selectedTower.gameObject);
+            DestroyImmediate(m_selectedTower.gameObject);
         }
     }
 
@@ -548,6 +544,7 @@ public class GameManager : MonoBehaviour {
         CalculatePowerGraph();
         SupplyPower(power);
         powerDirty = false;
+        currentPowerReq = m_powerSource.GetComponent<PowerSource>().GetPowerReq();
     }
 
     public void CalculatePowerGraph()
@@ -605,34 +602,5 @@ public class GameManager : MonoBehaviour {
         }
 
         return hitTower;
-    }
-
-    public void xyxxy(Tower grue)
-    {
-        //TODO after pentagram, explosion
-        //TODO after explosion, load new level
-        m_inGameUI.SetActive(false);
-        m_crurentState.Pop();
-        m_crurentState.Push(State._);
-        GameObject beam5 = Object.Instantiate(grue.particleBeam);
-        beam5.GetComponent<ConnectionParticleBeam>().target = source;
-        beam5.GetComponent<ConnectionParticleBeam>().parent = grue;
-        beam5.GetComponent<ConnectionParticleBeam>().Orient();
-        xyzzyCountdown = 5;
-        xyzzy = true;
-        foreach(Tower t in towers)
-        {
-            if (t.inStack)
-            {
-                Object.Instantiate(blast, t.beamEndpoint.transform);
-            }
-        }
-    }
-
-    public void unxyxxy()
-    {
-        m_titleMenuUI.SetActive(true);
-        m_crurentState.Pop();//_
-        SceneManager.LoadScene(0);
     }
 }
