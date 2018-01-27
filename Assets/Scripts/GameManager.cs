@@ -198,6 +198,8 @@ public class GameManager : MonoBehaviour {
                                     
                                     castPoint.y += (m_selectedTower.GetComponent<Renderer>().bounds.size.y / 2);
                                     m_selectedTower.transform.position = castPoint;
+                                    // Activate tower
+                                    m_selectedTower.GetComponent<Tower>().enabled = true;
                                     // Add tower to list
                                     towers.Add(m_selectedTower.GetComponent<Tower>());
                                     // Subtract cost of building
@@ -490,6 +492,7 @@ public class GameManager : MonoBehaviour {
         {
             tower.visited = false;
             tower.inStack = false;
+            tower.children.Clear();
             // TODO if distribution tower (And they're used) calculate its connections
         }
         source.CalculateChildren();

@@ -37,6 +37,7 @@ public class AttackTower : Tower {
 	
 	// Update is called once per frame
 	protected override void Update () {
+        base.Update();
 
         //TODO change based on scale? just make it big and check range elsewhere?
         EnemyDetector.radius = range;

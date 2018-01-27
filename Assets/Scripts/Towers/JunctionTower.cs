@@ -11,16 +11,16 @@ public class JunctionTower : Tower, IConnector {
 
     public override List<Tower> GetConnections()
     {
-        List<Tower> children = new List<Tower>();
+        List<Tower> l_children = new List<Tower>();
         if (connections[0] != null)
         {
-            children.Add(connections[0]);
+            l_children.Add(connections[0]);
         }
         if (connections[1] != null)
         {
-            children.Add(connections[1]);
+            l_children.Add(connections[1]);
         }
-        return children;
+        return l_children;
     }
 
     public bool MakeConnection(Tower target)
@@ -46,6 +46,6 @@ public class JunctionTower : Tower, IConnector {
 
     // Update is called once per frame
     protected override void Update () {
-		
+        base.Update();
 	}
 }

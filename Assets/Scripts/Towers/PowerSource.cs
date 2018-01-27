@@ -11,22 +11,22 @@ public class PowerSource : Tower, IConnector
 
     public override List<Tower> GetConnections()
     {
-        List<Tower> children = new List<Tower>();
+        List<Tower> l_children = new List<Tower>();
         if (child != null)
         {
-            children.Add(child);
+            l_children.Add(child);
         }
-        return children;
+        return l_children;
     }
 
     // Use this for initialization
     protected override void Start () {
-		
+        base.Start();
 	}
 
     // Update is called once per frame
     protected override void Update () {
-		
+        base.Update();
 	}
 
  

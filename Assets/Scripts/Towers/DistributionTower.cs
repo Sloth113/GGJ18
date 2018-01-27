@@ -20,7 +20,7 @@ public class DistributionTower : Tower {
 
     // Update is called once per frame
     protected override void Update () {
-		
+        base.Update();
 	}
 
     public void CalculateConnections()

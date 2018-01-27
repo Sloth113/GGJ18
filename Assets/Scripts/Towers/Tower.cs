@@ -17,6 +17,12 @@ public abstract class Tower : MonoBehaviour {
     // Towers connected to which this is sending power to
     public List<Tower> children;
 
+    public GameObject particleBeam;
+
+    public GameObject beamEndpoint;
+
+    public List<ConnectionParticleBeam> beams;
+
 	// Use this for initialization
 	protected virtual void Start () {
         m_powerInput = 0;
@@ -29,6 +35,33 @@ public abstract class Tower : MonoBehaviour {
         if(GameManager.Instance.selectedTower == gameObject)
         {
             // TODO turn on selection effect
+        }
+        // Manage connection beams
+        HashSet<Tower> beamTargets = new HashSet<Tower>(children);
+        List<ConnectionParticleBeam> currentBeams = new List<ConnectionParticleBeam>(beams);
+        foreach(ConnectionParticleBeam beam in currentBeams)
+        {
+            if (beamTargets.Contains(beam.target))
+            {
+                beamTargets.Remove(beam.target);
+            } else
+            {
+                beams.Remove(beam);
+                Object.Destroy(beam.gameObject);
+
+            }
+        }
+        foreach(Tower target in beamTargets)
+        {
+            GameObject beam = GameObject.Instantiate(particleBeam);
+            ConnectionParticleBeam beamComponent = beam.GetComponent<ConnectionParticleBeam>();
+            if(beamComponent != null)
+            {
+                beams.Add(beamComponent);
+                beamComponent.parent = this;
+                beamComponent.target = target;
+                beamComponent.Orient();
+            }
         }
 	}
 
