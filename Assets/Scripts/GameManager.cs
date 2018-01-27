@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour {
     private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
     private Transform m_enemySpawn;
+    [SerializeField] Vector3 towerPlacementOffset;
+    public float placedTowerOpacity;
 
     //Input
     [SerializeField]private GameObject m_selectedTower;
@@ -179,8 +181,8 @@ public class GameManager : MonoBehaviour {
                 {
                     if (m_building)
                     {
-                        m_selectedTower.transform.position = new Vector3(0, -1000, 0);
-                        //m_selectedTower.transform.position = GetMouseToGroundPlanePoint();
+                        m_selectedTower.transform.position = GetMouseToGroundPlanePoint() + towerPlacementOffset;
+                        
                         if (Input.GetMouseButtonDown(0))
                         {
                             Vector3 mousePos = Input.mousePosition;
