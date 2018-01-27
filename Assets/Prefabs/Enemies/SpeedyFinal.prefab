@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_speed: 50
   m_maxHealth: 10
-  m_power: 10
+  m_power: 2
   m_damageOutput: 1
   m_health: 0
   endDestination: {fileID: 0}
