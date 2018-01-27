@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
     //Level info
     public PowerSource source;
     private GameObject m_powerSource;
+    public float power;
     public List<Tower> towers;
     private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
@@ -169,7 +170,7 @@ public class GameManager : MonoBehaviour {
                     m_enemiesInPlay.RemoveAll(item => item == null);
 
                 }
-
+                // Building
                 if(m_selectedTower != null)
                 {
                     if (m_building)
@@ -193,7 +194,9 @@ public class GameManager : MonoBehaviour {
 
                                     castPoint.y += (m_selectedTower.GetComponent<Renderer>().bounds.size.y / 2);
                                     m_selectedTower.transform.position = castPoint;
-
+                                    // Add tower to list
+                                    towers.Add(m_selectedTower.GetComponent<Tower>());
+                                    SetDirtyPower();
                                     m_selectedTower = null;
                                     m_building = false;
                                 }
@@ -235,6 +238,7 @@ public class GameManager : MonoBehaviour {
                     {
                         //Set connections
                         Debug.Log("SET UP CONNECTIONS");
+                        //TODO set dirty flag
                     }
                 }
                 if (Input.GetMouseButtonDown(0) && m_selectedTower == null)
@@ -254,6 +258,11 @@ public class GameManager : MonoBehaviour {
                     }
                 }
 
+                // Update power graph if dirty
+                if (powerDirty)
+                {
+                    UpdatePowerGraph();
+                }
                 
                 break;
             case State.Pause:
@@ -282,7 +291,9 @@ public class GameManager : MonoBehaviour {
         m_roundStart = false;
 
         source = powerSource.GetComponent<PowerSource>();
+        towers.Add(source);
         m_powerSource = powerSource;
+        UpdatePowerGraph();
         m_waveInfo = waveInfo;
         m_enemySpawn = enemySpawn;
 
@@ -439,6 +450,14 @@ public class GameManager : MonoBehaviour {
         }
     }
     //Andrews power graph stuff
+
+    public void UpdatePowerGraph()
+    {
+        CalculatePowerGraph();
+        SupplyPower(power);
+        powerDirty = false;
+    }
+
     public void CalculatePowerGraph()
     {
         foreach (Tower tower in towers)

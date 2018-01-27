@@ -10,8 +10,14 @@ public class JunctionTower : Tower {
     public override List<Tower> GetConnections()
     {
         List<Tower> children = new List<Tower>();
-        children.Add(connection1);
-        children.Add(connection2);
+        if (connection1 != null)
+        {
+            children.Add(connection1);
+        }
+        if (connection2 != null)
+        {
+            children.Add(connection2);
+        }
         return children;
     }
 

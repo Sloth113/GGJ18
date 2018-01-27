@@ -40,10 +40,13 @@ public abstract class Tower : MonoBehaviour {
     public void AddPower(float power)
     {
         m_powerInput += power;
-        float childPower = power / children.Count;
-        foreach(Tower child in children)
+        if (children.Count > 0)
         {
-            child.AddPower(childPower);
+            float childPower = power / children.Count;
+            foreach (Tower child in children)
+            {
+                child.AddPower(childPower);
+            }
         }
     }
 

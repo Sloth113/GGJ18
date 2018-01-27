@@ -9,7 +9,10 @@ public class PowerSource : Tower {
     public override List<Tower> GetConnections()
     {
         List<Tower> children = new List<Tower>();
-        children.Add(child);
+        if (child != null)
+        {
+            children.Add(child);
+        }
         return children;
     }
 
