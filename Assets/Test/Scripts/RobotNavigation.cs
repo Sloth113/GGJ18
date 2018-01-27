@@ -40,7 +40,6 @@ public class RobotNavigation : MonoBehaviour {
         {
             if (endDestination != null)
             {
-                //m_agent.destination = endDestination.transform.position;
                 if ((transform.position - endDestination.transform.position).sqrMagnitude <= 400)
                 {
                     Debug.Log("Destroy should be called");
@@ -57,22 +56,12 @@ public class RobotNavigation : MonoBehaviour {
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject == endDestination)
-        {
-            endDestination.GetComponent<PowerSourceHealth>().ApplyDamage(m_damageOutput);
-            OnDeath();
-            // Destroy itself
-            // Game manager call or tower call
-        }
-    }
-
     public void OnHit(int damage)
     {
         m_health -= damage;
         if (m_health <= 0)
         {
+            GameManager.Instance.power += m_power;
             OnDeath();
         } else
         {
