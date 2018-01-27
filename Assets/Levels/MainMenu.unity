@@ -2551,7 +2551,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4952762134600956, guid: 7593c84eaeac0064dba55cb6e869386a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.25369895
+      value: 1.304
       objectReference: {fileID: 0}
     - target: {fileID: 4952762134600956, guid: 7593c84eaeac0064dba55cb6e869386a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2618,6 +2618,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114418873367921378, guid: 7593c84eaeac0064dba55cb6e869386a,
+        type: 2}
+      propertyPath: m_fireAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c3d66e7879ca5034083b22aaf1d3c8dc, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7593c84eaeac0064dba55cb6e869386a, type: 2}
   m_IsPrefabParent: 0
@@ -6912,6 +6917,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114825030613479276, guid: cc523795229f69241901a4e9992356e4,
+        type: 2}
+      propertyPath: m_fireAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b033710f283ea649891d5f2493b7a9a, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc523795229f69241901a4e9992356e4, type: 2}
   m_IsPrefabParent: 0
