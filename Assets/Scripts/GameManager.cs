@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour {
     private Transform m_enemySpawn;
     [SerializeField] Vector3 towerPlacementOffset;
     public float placedTowerOpacity;
+    public bool m_tutorial = true;
 
     //Input
     [SerializeField]private GameObject m_selectedTower;
@@ -402,6 +403,10 @@ public class GameManager : MonoBehaviour {
         m_levelSelectUI.SetActive(false);
         m_inGameUI.SetActive(true);
         //LOAD SCENE
+        if (level == 1)
+            m_tutorial = true;
+        else
+            m_tutorial = false;
         SceneManager.LoadScene(level);//level 1? 
     }
     public void LevelToPause()
@@ -600,17 +605,44 @@ public class GameManager : MonoBehaviour {
                 m_building = false;
             }
             m_ingameInfo.SetActive(false);
+            foreach (ConnectionParticleBeam b in m_selectedTower.GetComponent<Tower>().beams)
+            {
+                Destroy(b.gameObject);
+            }
+            
             DestroyImmediate(m_selectedTower.gameObject);
         }
     }
 
     public void StartWaves()
     {
-        m_inGameStart.SetActive(false);
+        //Check tutorial
+        Debug.Log(m_tutorial + " " + currentPowerReq + " " + towers.Count);
+        if (m_tutorial && currentPowerReq == 0)
+        {
+            //Decide what info to say
+            if (towers.Count < 2)
+            {
+                m_ingameInfo.SetActive(true);
+                m_ingameInfo.GetComponentInChildren<Text>().text = "Select an offensive tower below to start";
+            }
+            else
+            {
+                m_ingameInfo.SetActive(true);
+                m_ingameInfo.GetComponentInChildren<Text>().text = "Click on towers to form connections";
+            }
+
+        }
+        else
+        {
+            m_ingameInfo.SetActive(false);
+            m_tutorial = false;
+            m_inGameStart.SetActive(false);
             m_roundStart = true;
             m_spawnIndex = 0;
             m_waveIndex = 0;
-        
+
+        }
     }
 
     //Andrews power graph stuff
