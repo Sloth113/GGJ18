@@ -399,7 +399,7 @@ MonoBehaviour:
     type: 2}
   beamEndpoint: {fileID: 1118324461360186}
   selectionPlane: {fileID: 1785893815318982}
-  rotationRate: 0
+  rotationRate: 20
   beams: []
   m_fireAudioClip: {fileID: 0}
   minPower: 20

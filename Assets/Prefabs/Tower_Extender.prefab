@@ -228,7 +228,7 @@ MonoBehaviour:
     type: 2}
   beamEndpoint: {fileID: 1499158750130010}
   selectionPlane: {fileID: 1831196076125088}
-  rotationRate: 0
+  rotationRate: 20
   beams: []
   child: {fileID: 0}
   connectionRange: 60
