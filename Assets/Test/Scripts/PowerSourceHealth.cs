@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerSourceHealth : MonoBehaviour {
 
-    [SerializeField] private int m_maxHealth;
+    [SerializeField] private int m_maxHealth = 10;
     private int m_health;
 
 	// Use this for initialization

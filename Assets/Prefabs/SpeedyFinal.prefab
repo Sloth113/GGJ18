@@ -160,6 +160,7 @@ MonoBehaviour:
   m_speed: 50
   m_maxHealth: 10
   m_power: 10
+  m_damageOutput: 0
   m_health: 0
   endDestination: {fileID: 0}
 --- !u!135 &135713656761655306
