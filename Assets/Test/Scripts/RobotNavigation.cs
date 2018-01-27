@@ -31,7 +31,15 @@ public class RobotNavigation : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (endDestination != null)
-            m_agent.destination = endDestination.transform.position;
+        {
+            //m_agent.destination = endDestination.transform.position;
+            if ((transform.position - endDestination.transform.position).sqrMagnitude <= 400)
+            {
+                Debug.Log("Destroy should be called");
+                endDestination.GetComponent<PowerSourceHealth>().ApplyDamage(m_damageOutput);
+                OnDeath();
+            }
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -49,7 +57,10 @@ public class RobotNavigation : MonoBehaviour {
     {
         m_health -= damage;
         if (m_health <= 0)
+        {
             OnDeath();
+            GameManager.Instance.power += m_power;
+        }
     }
 
     void OnDeath ()
