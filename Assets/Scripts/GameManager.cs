@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour {
                     }
                     else 
                     {
-                        Tower selectedTower = m_selectedTower.GetComponent<Tower>();
+                        Tower l_selectedTower = m_selectedTower.GetComponent<Tower>();
                         Tower mouseoverTower = GetTowerUnderMouse();
                         //Set connections
                         if (Input.GetMouseButtonDown(0))
@@ -253,10 +253,10 @@ public class GameManager : MonoBehaviour {
                                 m_selectedTower = null;
                             } else
                             {
-                                if(selectedTower is IConnector && mouseoverTower != selectedTower)
+                                if(l_selectedTower is IConnector && mouseoverTower != l_selectedTower)
                                 {
                                     // Try making connection
-                                    if((selectedTower as IConnector).MakeConnection(mouseoverTower))
+                                    if((l_selectedTower as IConnector).MakeConnection(mouseoverTower))
                                     {
                                         // If connection succeeds, unselect tower and make power dirty
                                         m_selectedTower = null;
