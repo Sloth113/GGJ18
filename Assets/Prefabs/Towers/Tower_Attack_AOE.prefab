@@ -313,7 +313,7 @@ BoxCollider:
   m_GameObject: {fileID: 1105519464279026}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 20, y: 20, z: 20}
   m_Center: {x: 0, y: 0, z: 0}
@@ -433,7 +433,7 @@ MonoBehaviour:
   selectionPlane: {fileID: 1785893815318982}
   rotationRate: 20
   beams: []
-  m_fireAudioClip: {fileID: 0}
+  m_fireAudioClip: {fileID: 8300000, guid: c3d66e7879ca5034083b22aaf1d3c8dc, type: 3}
   minPower: 20
   maxPower: 40
   minROF: 0.2
