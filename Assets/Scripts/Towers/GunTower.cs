@@ -40,8 +40,7 @@ public class GunTower : AttackTower {
         base.ShootEnemy(enemy);
         if (m_fireAudioClip != null)
         {
-            m_audioSource.clip = m_fireAudioClip;
-            m_audioSource.Play();
+            SoundManager.instance.PlaySfx(m_fireAudioClip);
         }
     }
 

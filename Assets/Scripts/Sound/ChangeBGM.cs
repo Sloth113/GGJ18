@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeBGM : MonoBehaviour {
+public class ChangeBGM : MonoBehaviour
+{
+    public AudioClip newMusic;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+        ChangeMusic();
+    }
+
+    public void ChangeMusic()
+    {
+        SoundManager.instance.musicSource.clip = newMusic;
+        SoundManager.instance.musicSource.Play();
+    }
 }

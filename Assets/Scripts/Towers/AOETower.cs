@@ -32,8 +32,7 @@ public class AOETower : AttackTower {
         blast.Play();
         if (m_fireAudioClip != null)
         {
-            m_audioSource.clip = m_fireAudioClip;
-            m_audioSource.Play();
+            SoundManager.instance.PlaySfx(m_fireAudioClip);
         }
         //TODO
     }
