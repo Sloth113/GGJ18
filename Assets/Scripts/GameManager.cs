@@ -589,7 +589,7 @@ public class GameManager : MonoBehaviour {
     public void DeleteTower()
     {
         Debug.Log(m_selectedTower);
-        if (m_selectedTower != null)
+        if (m_selectedTower != null && m_selectedTower != m_powerSource)
         {
             if (!m_building)
             {
