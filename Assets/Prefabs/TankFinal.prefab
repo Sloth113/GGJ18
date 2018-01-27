@@ -173,6 +173,7 @@ MonoBehaviour:
   m_speed: 10
   m_maxHealth: 100
   m_power: 10
+  m_health: 0
   endDestination: {fileID: 0}
 --- !u!135 &135452992667639258
 SphereCollider:
@@ -213,7 +214,7 @@ NavMeshObstacle:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607495520132650}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
