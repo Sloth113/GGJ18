@@ -81,4 +81,9 @@ public class AttackTower : Tower {
         enemy.OnHit(damage);
     }
 
+    protected override void SetRangeCircle()
+    {
+        SetRangeCirclePoints(range);
+    }
+
 }

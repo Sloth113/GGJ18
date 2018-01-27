@@ -48,4 +48,9 @@ public class JunctionTower : Tower, IConnector {
     protected override void Update () {
         base.Update();
 	}
+
+    protected override void SetRangeCircle()
+    {
+        SetRangeCirclePoints(connectionRange);
+    }
 }

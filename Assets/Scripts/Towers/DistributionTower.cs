@@ -38,4 +38,9 @@ public class DistributionTower : Tower {
         }
     }
 
+    protected override void SetRangeCircle()
+    {
+        SetRangeCirclePoints(range);
+    }
+
 }
