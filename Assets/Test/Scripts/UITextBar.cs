@@ -22,19 +22,19 @@ public class UITextBar : MonoBehaviour {
 	void Update () {
         if (health == null)
         {
-            Debug.Log("health is null");
+            //Debug.Log("health is null");
             health = GameObject.FindObjectOfType<PowerSourceHealth>();
         }
 
 
         if (powerCounterText != null)
         {
-            powerCounterText.text = "Power: " + GameManager.Instance.power.ToString();
+            powerCounterText.text = "" + GameManager.Instance.power.ToString();
         }
         if (health != null && healthCounterText != null)
         {
             healthCounterText.text = "Health: " + health.ShowCurrentHealth().ToString();
-            Debug.Log("health stuff called");
+            //Debug.Log("health stuff called");
         }
     }
 }
