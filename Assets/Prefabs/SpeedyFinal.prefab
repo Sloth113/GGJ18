@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 54434381195707204}
   - component: {fileID: 114398911785475864}
   - component: {fileID: 195153249664731588}
-  - component: {fileID: 208498330688711148}
   m_Layer: 0
   m_Name: SpeedyFinal
   m_TagString: Untagged
@@ -196,18 +195,3 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
---- !u!208 &208498330688711148
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1863579193958350}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5

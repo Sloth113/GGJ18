@@ -9,6 +9,7 @@ public class RobotNavigation : MonoBehaviour {
     [SerializeField] private int m_speed = 1;
     [SerializeField] private int m_maxHealth = 1;
     [SerializeField] private int m_power = 1;
+    [SerializeField] private int m_damageOutput = 1;
 
     private NavMeshAgent m_agent;
     [SerializeField]
@@ -37,6 +38,8 @@ public class RobotNavigation : MonoBehaviour {
     {
         if(collision.gameObject == endDestination)
         {
+            endDestination.GetComponent<PowerSourceHealth>().ApplyDamage(m_damageOutput);
+            OnDeath();
             // Destroy itself
             // Game manager call or tower call
         }
