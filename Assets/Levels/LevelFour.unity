@@ -95,15 +95,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 1.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 1
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.5
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -1179,15 +1179,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveInfo:
-  - spawnOrder: 0000000000000000010000000000000002000000
+  - spawnOrder: 0000000000000000020000000000000000000000
     spawnTimer: 1
-    waveCooldown: 0
-  - spawnOrder: 00000000000000000100000000000000020000000000000002000000000000000100000002000000
+    waveCooldown: 10
+  - spawnOrder: 0100000001000000010000000100000001000000010000000000000001000000000000000100000000000000000000000100000001000000020000000000000002000000010000000200000000000000
     spawnTimer: 2
-    waveCooldown: 0
+    waveCooldown: 10
   - spawnOrder: 0100000002000000020000000000000001000000
     spawnTimer: 1
-    waveCooldown: 0
+    waveCooldown: 10
   powerSource: {fileID: 1336781443}
   enemySpawn: {fileID: 443726077}
   maxPower: 100
