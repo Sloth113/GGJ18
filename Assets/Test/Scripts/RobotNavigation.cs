@@ -9,7 +9,7 @@ public class RobotNavigation : MonoBehaviour {
     [SerializeField] private int m_speed = 1;
     [SerializeField] private int m_maxHealth = 1;
     [SerializeField] private int m_power = 1;
-    [SerializeField] private int m_damageOutput = 1;
+    [SerializeField] private int m_damageOutput = 2;
 
     private NavMeshAgent m_agent;
     [SerializeField]
@@ -66,7 +66,7 @@ public class RobotNavigation : MonoBehaviour {
         } else
         {
             damageEffect.Play();
-            GameManager.Instance.power += m_power;
+            //GameManager.Instance.power += m_power;
         }
     }
 
