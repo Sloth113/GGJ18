@@ -74,21 +74,27 @@ public class PowerSource : Tower, IConnector
     {
         List<Tower> list = new List<Tower>();
         List<Tower> nodesToVisit = new List<Tower>();
-        Tower currentChild;
+        Tower currentChild = null;
         nodesToVisit.Add(this);
-        if(GetConnections().Count > 0)
-            currentChild = GetConnections()[0];
-
-        //Get children
         
-        while (nodesToVisit.Count > 0 )
+        if (GetConnections().Count > 0)
         {
-            currentChild = nodesToVisit[0];
-            nodesToVisit.Remove(currentChild);
-            foreach (Tower t in currentChild.GetConnections())
-                nodesToVisit.Add(t);
-            list.Add(currentChild);
+            currentChild = child;
+
+            //Get children
+
+            while (nodesToVisit.Count > 0 )
+            {
+                currentChild = nodesToVisit[0];
+                nodesToVisit.Remove(currentChild);
+                foreach (Tower t in currentChild.GetConnections())
+                    if((!list.Contains(t)))
+                        nodesToVisit.Add(t);
+                list.Add(currentChild);
+                
+            }
         }
+        
         return list;
     }
 }
