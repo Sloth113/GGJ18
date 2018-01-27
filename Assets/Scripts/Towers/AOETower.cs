@@ -30,6 +30,11 @@ public class AOETower : AttackTower {
         blast.startLifetime = range / blast.startSpeed;
         blast.Stop();
         blast.Play();
+        if (m_fireAudioClip != null)
+        {
+            m_audioSource.clip = m_fireAudioClip;
+            m_audioSource.Play();
+        }
         //TODO
     }
 

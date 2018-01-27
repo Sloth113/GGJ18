@@ -38,7 +38,11 @@ public class GunTower : AttackTower {
         Debug.Log("Shots fired");
         ShowLaser(enemy.gameObject.transform.position);
         base.ShootEnemy(enemy);
-        //TODO play shooting noise
+        if (m_fireAudioClip != null)
+        {
+            m_audioSource.clip = m_fireAudioClip;
+            m_audioSource.Play();
+        }
     }
 
     private void ShowLaser(Vector3 target)
