@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4137845054640884
 Transform:
   m_ObjectHideFlags: 1
@@ -399,6 +399,7 @@ MonoBehaviour:
     type: 2}
   beamEndpoint: {fileID: 1118324461360186}
   selectionPlane: {fileID: 1785893815318982}
+  rotationRate: 0
   beams: []
   m_fireAudioClip: {fileID: 0}
   minPower: 1

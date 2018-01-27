@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1785610872398030
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +243,8 @@ MonoBehaviour:
   particleBeam: {fileID: 1981148485829696, guid: 5f0a7b2b354f0674193ea7ddca57cce1,
     type: 2}
   beamEndpoint: {fileID: 1785610872398030}
-  selectionPlane: {fileID: 0}
+  selectionPlane: {fileID: 1719847281654142}
+  rotationRate: 0
   beams: []
   child: {fileID: 0}
   connectionRange: 60

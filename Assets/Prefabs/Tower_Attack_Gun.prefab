@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1378179422086224
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1323189808294630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.58, z: 0}
+  m_LocalPosition: {x: 0, y: -6, z: 0}
   m_LocalScale: {x: 2.8, y: 1, z: 2.8}
   m_Children: []
   m_Father: {fileID: 4032315391484638}
@@ -427,6 +427,7 @@ MonoBehaviour:
     type: 2}
   beamEndpoint: {fileID: 1513274715043948}
   selectionPlane: {fileID: 1323189808294630}
+  rotationRate: 0
   beams: []
   m_fireAudioClip: {fileID: 0}
   minPower: 1

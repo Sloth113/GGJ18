@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4193695581628186}
   - component: {fileID: 198682300538583596}
   - component: {fileID: 199969770407956888}
+  - component: {fileID: 114259219106520086}
   m_Layer: 0
   m_Name: Energy
   m_TagString: Untagged
@@ -41,6 +42,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -3.3420002, y: -90.867004, z: 176.69801}
+--- !u!114 &114259219106520086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973088616662972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e8c9e1478b24949af2ebec801464fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beam: {fileID: 0}
+  target: {fileID: 0}
+  parent: {fileID: 0}
 --- !u!198 &198682300538583596
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -51,7 +66,7 @@ ParticleSystem:
   lengthInSec: 5
   simulationSpeed: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -2364,7 +2379,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 3
     type: 0
     collisionMode: 0
@@ -2422,7 +2437,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2463,7 +2478,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
