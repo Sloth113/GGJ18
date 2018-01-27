@@ -33,12 +33,21 @@ public class RobotNavigation : MonoBehaviour {
     }
 
     // Update is called once per frame
+
     void Update()
     {
         if (m_alive)
         {
             if (endDestination != null)
-                m_agent.destination = endDestination.transform.position;
+            {
+                //m_agent.destination = endDestination.transform.position;
+                if ((transform.position - endDestination.transform.position).sqrMagnitude <= 400)
+                {
+                    Debug.Log("Destroy should be called");
+                    endDestination.GetComponent<PowerSourceHealth>().ApplyDamage(m_damageOutput);
+                    OnDeath();
+                }
+            }
         } else
         {
             if (!deathEffect.IsAlive())
@@ -68,6 +77,7 @@ public class RobotNavigation : MonoBehaviour {
         } else
         {
             damageEffect.Play();
+            GameManager.Instance.power += m_power;
         }
     }
 
