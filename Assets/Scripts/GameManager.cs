@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour {
     public GameObject m_levelSelectUI;
     public GameObject m_pauseMenuUI;
     public GameObject m_inGameUI;
+    public GameObject m_ingameInfo;
     public GameObject m_inGameStart;
     public GameObject m_settingsUI;
     public GameObject m_overUI;
@@ -143,6 +144,7 @@ public class GameManager : MonoBehaviour {
                 {
                     m_selectedTower = null;
                     m_deleteWait = false;
+                    m_ingameInfo.SetActive(false);
                 }
                 //SPAWNER
                 if (m_roundStart)
@@ -226,12 +228,14 @@ public class GameManager : MonoBehaviour {
                                     SetDirtyPower();
                                     m_selectedTower = null;
                                     m_building = false;
+                                    m_ingameInfo.SetActive(false);
                                 }
                                 else
                                 {
                                     Destroy(m_selectedTower.gameObject);
                                     m_selectedTower = null;
                                     m_building = false;
+                                    m_ingameInfo.SetActive(false);
                                 }
                             }
                             /*
@@ -284,6 +288,7 @@ public class GameManager : MonoBehaviour {
                                         // If connection succeeds, unselect tower and make power dirty
                                         m_selectedTower = null;
                                         SetDirtyPower();
+                                        m_ingameInfo.SetActive(false);
                                     }
                                 }
                             }
@@ -297,7 +302,11 @@ public class GameManager : MonoBehaviour {
                     if(newSelection != null)
                     {
                         m_selectedTower = newSelection.gameObject;
+                        m_ingameInfo.SetActive(true);
+                        Text info = m_ingameInfo.GetComponentInChildren<Text>();
+                        info.text = "Build Cost : " + m_selectedTower.GetComponent<Tower>().cost + " Running Cost: " + (m_selectedTower.GetComponent<Tower>() is AttackTower ? m_selectedTower.GetComponent<AttackTower>().minPower : 0);
                     }
+                   
                 }
                 if (((m_powerSource.GetComponent<PowerSourceHealth>().ShowCurrentHealth())) <= 0)
                 {
@@ -493,12 +502,16 @@ public class GameManager : MonoBehaviour {
         float cost = m_extTower.GetComponent<Tower>().cost;
         if (m_selectedTower == null && cost <= power)
         {
+            m_ingameInfo.SetActive(true);
+            Text info = m_ingameInfo.GetComponentInChildren<Text>();
+            info.text = "Build Cost : " + cost + " Running Cost: " + 0;
             m_selectedTower = Instantiate<GameObject>(m_extTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
         else if(m_building)
         {
+            m_ingameInfo.SetActive(false);
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
             m_building = false;
@@ -509,12 +522,16 @@ public class GameManager : MonoBehaviour {
         float cost = m_spltTower.GetComponent<Tower>().cost;
         if (m_selectedTower == null && cost <= power)
         {
+            m_ingameInfo.SetActive(true);
+            Text info = m_ingameInfo.GetComponentInChildren<Text>();
+            info.text = "Build Cost : " + cost + " Running Cost: " + 0;
             m_selectedTower = Instantiate<GameObject>(m_spltTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
         else if(m_building)
         {
+            m_ingameInfo.SetActive(false);
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
             m_building = false;
@@ -525,12 +542,16 @@ public class GameManager : MonoBehaviour {
         float cost = m_aoeTower.GetComponent<Tower>().cost;
         if (m_selectedTower == null && cost <= power)
         {
+            m_ingameInfo.SetActive(true);
+            Text info = m_ingameInfo.GetComponentInChildren<Text>();
+            info.text = "Build Cost : " + cost + " Running Cost: " + m_aoeTower.GetComponent<AttackTower>().minPower;
             m_selectedTower = Instantiate<GameObject>(m_aoeTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
         else if (m_building)
         {
+            m_ingameInfo.SetActive(false);
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
             m_building = false;
@@ -541,12 +562,16 @@ public class GameManager : MonoBehaviour {
         float cost = m_gunTower.GetComponent<Tower>().cost;
         if (m_selectedTower == null && cost <= power)
         {
+            m_ingameInfo.SetActive(true);
+            Text info = m_ingameInfo.GetComponentInChildren<Text>();
+            info.text = "Build Cost : " + cost + " Running Cost: " + m_gunTower.GetComponent<AttackTower>().minPower;
             m_selectedTower = Instantiate<GameObject>(m_gunTower);
             m_selectedTower.GetComponent<Tower>().enabled = false;
             m_building = true;
         }
         else if (m_building)
         {
+            m_ingameInfo.SetActive(false);
             Destroy(m_selectedTower.gameObject);
             m_selectedTower = null;
             m_building = false;
@@ -571,6 +596,7 @@ public class GameManager : MonoBehaviour {
             {
                 m_building = false;
             }
+            m_ingameInfo.SetActive(false);
             DestroyImmediate(m_selectedTower.gameObject);
         }
     }
