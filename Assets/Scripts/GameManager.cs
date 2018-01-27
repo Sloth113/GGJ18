@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     private enum State
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField]private GameObject m_selectedTower;
     public GameObject selectedTower { get { return m_selectedTower; } }
     private bool m_connect;
+    private bool m_deleteWait;
 
     //State and other 
     private Stack<State> m_crurentState;
@@ -69,6 +71,8 @@ public class GameManager : MonoBehaviour {
     public GameObject m_inGameUI;
     public GameObject m_settingsUI;
     public GameObject m_overUI;
+    public GameObject m_overDead;
+    public GameObject m_overWin;
     public GameObject m_eventSystem;
 
     //Enemies in game stuff
@@ -175,6 +179,9 @@ public class GameManager : MonoBehaviour {
                     {
                         //All enemies dead and finished spawning
                         LevelToOver();
+
+                        m_overDead.SetActive(false);
+                        m_overWin.SetActive(true);
                     }
 
                     m_enemiesInPlay.RemoveAll(item => item == null);
@@ -258,7 +265,8 @@ public class GameManager : MonoBehaviour {
                             if (mouseoverTower == null)
                             {
                                 // Unselect tower if clicking elsewhere on map
-                                m_selectedTower = null;
+                                m_deleteWait = true;
+                                
                             } else
                             {
                                 if(l_selectedTower is IConnector && mouseoverTower != l_selectedTower)
@@ -283,11 +291,23 @@ public class GameManager : MonoBehaviour {
                         m_selectedTower = newSelection.gameObject;
                     }
                 }
+                if (((m_powerSource.GetComponent<PowerSourceHealth>().ShowCurrentHealth())) <= 0)
+                {
+                    LevelToOver();
+                    //Display dead
+                    m_overDead.SetActive(true);
+                    m_overWin.SetActive(false);
+                }
 
                 // Update power graph if dirty
                 if (powerDirty)
                 {
                     UpdatePowerGraph();
+                }
+                if(m_deleteWait)
+                {
+                    m_selectedTower = null;
+                    m_deleteWait = false;
                 }
                 
                 break;
@@ -498,6 +518,23 @@ public class GameManager : MonoBehaviour {
             m_building = false;
         }
     }
+    //
+    public void DeleteTower()
+    {
+        if (m_selectedTower != null)
+        {
+            if (!m_building)
+            {
+                towers.Remove(m_selectedTower.GetComponent<Tower>());
+                SetDirtyPower();
+            } else
+            {
+                m_building = false;
+            }
+            Destroy(m_selectedTower.gameObject);
+        }
+    }
+
     //Andrews power graph stuff
 
     public void UpdatePowerGraph()

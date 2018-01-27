@@ -8,7 +8,6 @@ public class UITextBar : MonoBehaviour {
     /*[SerializeField] */private Text powerCounterText;
     /*[SerializeField] */private Text healthCounterText;
 
-    private LevelLoadInfo levelInfo;
     private PowerSourceHealth health;
 
 
@@ -16,19 +15,11 @@ public class UITextBar : MonoBehaviour {
 	void Start () {
         powerCounterText = GameObject.Find("PowerText").GetComponent<Text>();
         healthCounterText = GameObject.Find("HealthText").GetComponent<Text>();
-        levelInfo = GameObject.FindObjectOfType<LevelLoadInfo>();
         health = GameObject.FindObjectOfType<PowerSourceHealth>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (levelInfo == null)
-        {
-            Debug.Log("levelInfo is null");
-            levelInfo = GameObject.FindObjectOfType<LevelLoadInfo>();
-        }
-
-
         if (health == null)
         {
             Debug.Log("health is null");
@@ -36,12 +27,14 @@ public class UITextBar : MonoBehaviour {
         }
 
 
-        if (levelInfo != null && powerCounterText != null)
+        if (powerCounterText != null)
         {
-            powerCounterText.text = "Power: " + levelInfo.maxPower.ToString();
-            Debug.Log("Power Counter Text called");
+            powerCounterText.text = "Power: " + GameManager.Instance.power.ToString();
         }
         if (health != null && healthCounterText != null)
+        {
             healthCounterText.text = "Health: " + health.ShowCurrentHealth().ToString();
-	}
+            Debug.Log("health stuff called");
+        }
+    }
 }

@@ -9,7 +9,7 @@ public class RobotNavigation : MonoBehaviour {
     [SerializeField] private int m_speed = 1;
     [SerializeField] private int m_maxHealth = 1;
     [SerializeField] private int m_power = 1;
-    [SerializeField] private int m_damageOutput = 1;
+    [SerializeField] private int m_damageOutput = 2;
 
     private NavMeshAgent m_agent;
     [SerializeField]
@@ -40,7 +40,6 @@ public class RobotNavigation : MonoBehaviour {
         {
             if (endDestination != null)
             {
-                //m_agent.destination = endDestination.transform.position;
                 if ((transform.position - endDestination.transform.position).sqrMagnitude <= 400)
                 {
                     Debug.Log("Destroy should be called");
@@ -57,31 +56,17 @@ public class RobotNavigation : MonoBehaviour {
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject == endDestination)
-        {
-            endDestination.GetComponent<PowerSourceHealth>().ApplyDamage(m_damageOutput);
-            OnDeath();
-            // Destroy itself
-            // Game manager call or tower call
-        }
-    }
-
     public void OnHit(int damage)
     {
-        if (!m_alive)
+        m_health -= damage;
+        if (m_health <= 0)
         {
-            m_health -= damage;
-            if (m_health <= 0)
-            {
-                OnDeath();
-            }
-            else
-            {
-                damageEffect.Play();
-                GameManager.Instance.power += m_power;
-            }
+            GameManager.Instance.power += m_power;
+            OnDeath();
+        } else
+        {
+            damageEffect.Play();
+            //GameManager.Instance.power += m_power;
         }
     }
 
