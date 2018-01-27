@@ -36,5 +36,6 @@ public class AOETower : AttackTower {
     protected override void ShootEnemy(RobotNavigation enemy)
     {
         //TODO specific effect for hurting enemy
+        base.ShootEnemy(enemy);
     }
 }

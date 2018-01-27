@@ -176,7 +176,7 @@ MonoBehaviour:
   fireTime: 0
   reloadProgress: 0
   damage: 30
-  EnemyDetector: {fileID: 0}
+  EnemyDetector: {fileID: 135691381847081060}
   range: 10
   laser: {fileID: 120598844929343698}
   laserOrigin: {fileID: 1378179422086224}
