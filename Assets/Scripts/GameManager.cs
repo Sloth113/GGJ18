@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour {
                     if (m_waveIndex < m_waveInfo.Count)
                     {
                         //Round started
-                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer)
+                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer && m_spawnIndex < m_waveInfo[m_waveIndex].spawnOrder.Count)
                         {
                             //Spawn the thing
                             m_spawnTimer = 0;
@@ -158,18 +158,20 @@ public class GameManager : MonoBehaviour {
                             m_enemiesInPlay.Add(m_newestEnemy);
                             m_newestEnemy.GetComponent<RobotNavigation>().endDestination = m_powerSource;
                             //put wave count in here 
-                            if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
-                            {
-                                m_waveIndex++;
-                                m_spawnIndex = 0;
-                            }
+
                         }
                         else
                         {
                             //increase spawn timer
                             m_spawnTimer += Time.deltaTime;
                         }
-                    }else if(m_enemiesInPlay.Count <= 0)
+                        if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
+                        {
+                            m_waveIndex++;
+                            m_spawnIndex = 0;
+                        }
+                    }
+                    else if(m_enemiesInPlay.Count <= 0)
                     {
                         //All enemies dead and finished spawning
                         LevelToOver();
