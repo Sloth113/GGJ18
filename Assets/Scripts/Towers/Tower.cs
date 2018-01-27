@@ -29,11 +29,15 @@ public abstract class Tower : MonoBehaviour {
 
     public List<ConnectionParticleBeam> beams;
 
+    public virtual void Awake()
+    {
+        SetRangeCircle();
+    }
+
 	// Use this for initialization
 	protected virtual void Start () {
         m_powerInput = 0;
         children = new List<Tower>();
-        SetRangeCircle();
 	}
 	
 	// Update is called once per frame

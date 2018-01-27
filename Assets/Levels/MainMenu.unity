@@ -2614,6 +2614,10 @@ Prefab:
       propertyPath: playOnAwake
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1021758339737086, guid: 7593c84eaeac0064dba55cb6e869386a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7593c84eaeac0064dba55cb6e869386a, type: 2}
   m_IsPrefabParent: 0
@@ -2784,6 +2788,10 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882492075608492, guid: f53e1df7a0f5d704c986a4c733c961aa, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f53e1df7a0f5d704c986a4c733c961aa, type: 2}
@@ -6897,6 +6905,10 @@ Prefab:
     - target: {fileID: 135691381847081060, guid: cc523795229f69241901a4e9992356e4,
         type: 2}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1443454326770034, guid: cc523795229f69241901a4e9992356e4, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour {
                     if (m_waveIndex < m_waveInfo.Count)
                     {
                         //Round started
-                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer && m_spawnIndex < m_waveInfo[m_waveIndex].spawnOrder.Count)
+                        if (m_spawnTimer > m_waveInfo[m_waveIndex].spawnTimer)
                         {
                             //Spawn the thing
                             m_spawnTimer = 0;
@@ -158,20 +158,18 @@ public class GameManager : MonoBehaviour {
                             m_enemiesInPlay.Add(m_newestEnemy);
                             m_newestEnemy.GetComponent<RobotNavigation>().endDestination = m_powerSource;
                             //put wave count in here 
-
+                            if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
+                            {
+                                m_waveIndex++;
+                                m_spawnIndex = 0;
+                            }
                         }
                         else
                         {
                             //increase spawn timer
                             m_spawnTimer += Time.deltaTime;
                         }
-                        if (m_spawnIndex >= m_waveInfo[m_waveIndex].spawnOrder.Count && m_spawnTimer >= m_waveInfo[m_waveIndex].waveCooldown)
-                        {
-                            m_waveIndex++;
-                            m_spawnIndex = 0;
-                        }
-                    }
-                    else if(m_enemiesInPlay.Count <= 0)
+                    }else if(m_enemiesInPlay.Count <= 0)
                     {
                         //All enemies dead and finished spawning
                         LevelToOver();
@@ -189,6 +187,7 @@ public class GameManager : MonoBehaviour {
                     if (m_building)
                     {
                         m_selectedTower.transform.position = GetMouseToGroundPlanePoint() + towerPlacementOffset;
+                        m_selectedTower.GetComponent<Tower>().rangeCircle.gameObject.SetActive(true);
                         
                         if (Input.GetMouseButtonDown(0))
                         {
@@ -503,7 +502,7 @@ public class GameManager : MonoBehaviour {
     public void DeleteTower()
     {
         Debug.Log(m_selectedTower);
-        if (m_selectedTower != null && m_selectedTower != m_powerSource)
+        if (m_selectedTower != null)
         {
             if (!m_building)
             {
@@ -513,7 +512,7 @@ public class GameManager : MonoBehaviour {
             {
                 m_building = false;
             }
-            DestroyImmediate(m_selectedTower.gameObject);
+            Destroy(m_selectedTower.gameObject);
         }
     }
 
