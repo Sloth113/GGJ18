@@ -11,6 +11,7 @@ public class RobotNavigation : MonoBehaviour {
     [SerializeField] private int m_power = 1;
 
     private NavMeshAgent m_agent;
+    [SerializeField]
     private int m_health;
 
     public GameObject endDestination;

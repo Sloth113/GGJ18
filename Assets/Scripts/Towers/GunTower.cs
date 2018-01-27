@@ -37,6 +37,7 @@ public class GunTower : AttackTower {
         reloadProgress = 0;
         Debug.Log("Shots fired");
         ShowLaser(enemy.gameObject.transform.position);
+        base.ShootEnemy(enemy);
         //TODO play shooting noise
     }
 

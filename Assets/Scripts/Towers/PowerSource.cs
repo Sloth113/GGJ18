@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerSource : Tower {
+public class PowerSource : Tower, IConnector
+{
 
     public Tower child;
+
+    [SerializeField] float connectionRange;
 
     public override List<Tower> GetConnections()
     {
         List<Tower> children = new List<Tower>();
-        children.Add(child);
+        if (child != null)
+        {
+            children.Add(child);
+        }
         return children;
     }
 
@@ -27,5 +33,18 @@ public class PowerSource : Tower {
     public void CalculateChildren()
     {
         SetChildren();
+    }
+
+    public bool MakeConnection(Tower target)
+    {
+        bool success = false;
+        // Check if target in range
+        Vector3 displacement = target.transform.position - transform.position;
+        if (displacement.sqrMagnitude <= connectionRange * connectionRange)
+        {
+            child = target;
+            success = true;
+        }
+        return success;
     }
 }

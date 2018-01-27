@@ -41,7 +41,10 @@ public class GameManager : MonoBehaviour {
     //Level info
     public PowerSource source;
     private GameObject m_powerSource;
+    public float power;
+    public float maxPower;
     public List<Tower> towers;
+    private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
     private Transform m_enemySpawn;
 
@@ -109,6 +112,8 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(m_eventSystem);
     }
 	
+    //TODO before selecting new building to construct, check it can be afforded
+
 	// Update is called once per frame
 	void Update () {
         switch (m_crurentState.Peek()) {
@@ -168,7 +173,7 @@ public class GameManager : MonoBehaviour {
                     m_enemiesInPlay.RemoveAll(item => item == null);
 
                 }
-
+                // Building
                 if(m_selectedTower != null)
                 {
                     if (m_building)
@@ -189,16 +194,22 @@ public class GameManager : MonoBehaviour {
                                 if (hit.transform.tag == "Ground")
                                 {
                                     Vector3 castPoint = hit.point;
-
+                                    
                                     castPoint.y += (m_selectedTower.GetComponent<Renderer>().bounds.size.y / 2);
                                     m_selectedTower.transform.position = castPoint;
-
+                                    // Add tower to list
+                                    towers.Add(m_selectedTower.GetComponent<Tower>());
+                                    // Subtract cost of building
+                                    power = Mathf.Max(0, power - m_selectedTower.GetComponent<Tower>().cost);
+                                    SetDirtyPower();
                                     m_selectedTower = null;
+                                    m_building = false;
                                 }
                                 else
                                 {
                                     Destroy(m_selectedTower.gameObject);
                                     m_selectedTower = null;
+                                    m_building = false;
                                 }
                             }
                             /*
@@ -232,6 +243,7 @@ public class GameManager : MonoBehaviour {
                     {
                         //Set connections
                         Debug.Log("SET UP CONNECTIONS");
+                        //TODO set dirty flag
                     }
                 }
                 if (Input.GetMouseButtonDown(0) && m_selectedTower == null)
@@ -251,6 +263,11 @@ public class GameManager : MonoBehaviour {
                     }
                 }
 
+                // Update power graph if dirty
+                if (powerDirty)
+                {
+                    UpdatePowerGraph();
+                }
                 
                 break;
             case State.Pause:
@@ -268,7 +285,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public void LoadLevel(GameObject powerSource, Transform enemySpawn, List<Wave> waveInfo)
+    public void LoadLevel(LevelLoadInfo level)
     {
         //Set defaults 
         m_spawnIndex = 0;
@@ -278,10 +295,14 @@ public class GameManager : MonoBehaviour {
         towers.Clear();
         m_roundStart = false;
 
-        source = powerSource.GetComponent<PowerSource>();
-        m_powerSource = powerSource;
-        m_waveInfo = waveInfo;
-        m_enemySpawn = enemySpawn;
+        source = level.powerSource.GetComponent<PowerSource>();
+        towers.Add(source);
+        m_powerSource = level.powerSource;
+        maxPower = level.maxPower;
+        power = maxPower;
+        UpdatePowerGraph();
+        m_waveInfo = level.waveInfo;
+        m_enemySpawn = level.enemySpawn;
 
         m_crurentState.Push(State.InGame);
         
@@ -436,12 +457,21 @@ public class GameManager : MonoBehaviour {
         }
     }
     //Andrews power graph stuff
+
+    public void UpdatePowerGraph()
+    {
+        CalculatePowerGraph();
+        SupplyPower(power);
+        powerDirty = false;
+    }
+
     public void CalculatePowerGraph()
     {
         foreach (Tower tower in towers)
         {
             tower.visited = false;
             tower.inStack = false;
+            // TODO if distribution tower (And they're used) calculate its connections
         }
         source.CalculateChildren();
     }
@@ -454,6 +484,12 @@ public class GameManager : MonoBehaviour {
         }
         source.AddPower(power);
     }
+
+    public void SetDirtyPower()
+    {
+        powerDirty = true;
+    }
+
     private Vector3 GetMouseToGroundPlanePoint()
     {
 

@@ -8,7 +8,7 @@ public class AOETower : AttackTower {
 
     // Use this for initialization
     protected override void Start () {
-		
+        base.Start();
 	}
 	
 	// Update is called once per frame
@@ -36,5 +36,6 @@ public class AOETower : AttackTower {
     protected override void ShootEnemy(RobotNavigation enemy)
     {
         //TODO specific effect for hurting enemy
+        base.ShootEnemy(enemy);
     }
 }
