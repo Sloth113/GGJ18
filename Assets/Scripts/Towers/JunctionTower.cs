@@ -12,13 +12,12 @@ public class JunctionTower : Tower, IConnector {
     public override List<Tower> GetConnections()
     {
         List<Tower> l_children = new List<Tower>();
-        if (connections[0] != null)
+        foreach(Tower t in connections)
         {
-            l_children.Add(connections[0]);
-        }
-        if (connections[1] != null)
-        {
-            l_children.Add(connections[1]);
+            if(t != null)
+            {
+                l_children.Add(t);
+            }
         }
         return l_children;
     }
@@ -31,7 +30,7 @@ public class JunctionTower : Tower, IConnector {
         if (displacement.sqrMagnitude <= connectionRange * connectionRange)
         {
             connections[nextConnection] = target;
-            nextConnection = 1 - nextConnection;    // Toggle between 0 and 1
+            nextConnection = (nextConnection + 1) %3;    // Toggle between 0 and 1 and 2
             success = true;
         }
         return success;
@@ -40,7 +39,7 @@ public class JunctionTower : Tower, IConnector {
     // Use this for initialization
     protected override void Start () {
         base.Start();
-        connections = new Tower[2];
+        connections = new Tower[3];
         nextConnection = 0;
 	}
 
