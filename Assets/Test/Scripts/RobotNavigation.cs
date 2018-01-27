@@ -14,14 +14,18 @@ public class RobotNavigation : MonoBehaviour {
     private NavMeshAgent m_agent;
     [SerializeField]
     private int m_health;
+    private bool m_alive;
 
     public GameObject endDestination;
 
+    [SerializeField]ParticleSystem damageEffect;
+    [SerializeField]ParticleSystem deathEffect;
 
     // Use this for initialization
     void Start () {
         m_agent = GetComponent<NavMeshAgent>();
         m_health = m_maxHealth;
+        m_alive = true;
         m_agent.speed = m_speed;
         if (endDestination != null)
             m_agent.destination = endDestination.transform.position;
@@ -29,9 +33,19 @@ public class RobotNavigation : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        if (endDestination != null)
-            m_agent.destination = endDestination.transform.position;
+    void Update()
+    {
+        if (m_alive)
+        {
+            if (endDestination != null)
+                m_agent.destination = endDestination.transform.position;
+        } else
+        {
+            if (!deathEffect.IsAlive())
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -49,15 +63,25 @@ public class RobotNavigation : MonoBehaviour {
     {
         m_health -= damage;
         if (m_health <= 0)
+        {
             OnDeath();
+        } else
+        {
+            damageEffect.Play();
+        }
     }
 
     void OnDeath ()
     {
         // gameManager.addPower(power);
-        Destroy(gameObject);
-        // Destroy gameObject
+        m_alive = false;
+        // Disable components
+        this.GetComponent<Collider>().enabled = false;
+        Destroy(this.GetComponent<Rigidbody>());
+        this.GetComponent<NavMeshAgent>().enabled = false;
+        this.GetComponentInChildren<MeshRenderer>().enabled = false;
         // Explosion particle system
+        deathEffect.Play();
         // Power gain particle system
     }
 }
