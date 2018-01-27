@@ -30,11 +30,11 @@ public class RobotNavigation : MonoBehaviour {
         m_agent.speed = m_speed;
         if (endDestination != null)
             m_agent.destination = endDestination.transform.position;
-        foreach(Tower newTower in GameManager.Instance.towers)
+        foreach(AttackTower newTower in GameManager.Instance.attackTowers)
         {
-            if (newTower.transform.position.x >= -100)
+            if (newTower.transform.position.x >= -100 && newTower.Powered)
                 m_agent.SetAreaCost(4, m_agent.GetAreaCost(4) + 1);
-            else if (newTower.transform.position.y < -100)
+            else if (newTower.transform.position.y < -100 && newTower.Powered)
                 m_agent.SetAreaCost(3, m_agent.GetAreaCost(3) + 1);
         }
 
@@ -62,16 +62,6 @@ public class RobotNavigation : MonoBehaviour {
             {
                 Destroy(gameObject);
             }
-        }
-        if(GameManager.Instance.towerListChange == true)
-        {
-            GameManager.Instance.towerListChange = false;
-            int newTowerIndex = GameManager.Instance.towers.Count;
-            m_newTower = GameManager.Instance.towers[newTowerIndex - 1];
-            if (m_newTower.transform.position.x >= -100)
-                m_agent.SetAreaCost(4, m_agent.GetAreaCost(4) + 1);
-            else if (m_newTower.transform.position.y < -100)
-                m_agent.SetAreaCost(3, m_agent.GetAreaCost(3) + 1);
         }
     }
 
@@ -106,3 +96,5 @@ public class RobotNavigation : MonoBehaviour {
         // Power gain particle system
     }
 }
+
+

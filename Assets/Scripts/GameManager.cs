@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     public float power;
     public float maxPower;
     public List<Tower> towers;
-    public bool towerListChange = false;
+    public List<AttackTower> attackTowers;
     private float chickenCountdown;
     private bool chicken;
     private bool powerDirty;     // Dirty flag for recalculating power supply
@@ -222,7 +222,10 @@ public class GameManager : MonoBehaviour {
                                     m_selectedTower.GetComponent<Tower>().enabled = true;
                                     // Add tower to list
                                     towers.Add(m_selectedTower.GetComponent<Tower>());
-                                    towerListChange = true;
+                                    // Check if tower is an attack tower and add to list of attack towers
+                                    AttackTower newTower = m_selectedTower.GetComponent<AttackTower>();
+                                    if (newTower != null)
+                                        attackTowers.Add(newTower);
                                     // Subtract cost of building
                                     power = Mathf.Max(0, power - m_selectedTower.GetComponent<Tower>().cost);
                                     SetDirtyPower();
