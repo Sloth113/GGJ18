@@ -5650,6 +5650,7 @@ MonoBehaviour:
   m_extTower: {fileID: 1353368044208528, guid: 7519c4caa4a78a446978cf7cbcc24678, type: 2}
   m_spltTower: {fileID: 1052865782308088, guid: 809553c240ba1a64dacc6b232ac504cd,
     type: 2}
+  blast: {fileID: 1816256473307990, guid: 677c736ba19ee8f4d8128eb0976721dd, type: 2}
   m_speedyEnemy: {fileID: 1863579193958350, guid: 3203aef8767f18c40853c615a471b20b,
     type: 2}
   m_normalEnemy: {fileID: 1961231140668284, guid: 4256acdbb99b7c646b59abe0c3ae6dab,

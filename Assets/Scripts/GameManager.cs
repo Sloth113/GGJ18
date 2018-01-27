@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour {
         InGame,
         Pause,
         Settings,
-        GameOver
+        GameOver,
+        _
     }
     //Singleton approach
     private static GameManager m_instance = null;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour {
     public GameObject m_aoeTower;
     public GameObject m_extTower;
     public GameObject m_spltTower;
+    public GameObject blast;
 
     //Enemy prefabs
     public GameObject m_speedyEnemy;
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour {
     private GameObject m_powerSource;
     public float power;
     public float maxPower;
+    private float xyzzyCountdown;
+    private bool xyzzy;
     public List<Tower> towers;
     private bool powerDirty;     // Dirty flag for recalculating power supply
     private List<Wave> m_waveInfo;
@@ -296,6 +300,21 @@ public class GameManager : MonoBehaviour {
             case State.GameOver:
 
                 break;
+            case State._:
+                if (xyzzy)
+                {
+                    xyzzyCountdown -= Time.deltaTime;
+                    foreach (GameObject enemy in m_enemiesInPlay)
+                    {
+                        enemy.GetComponent<RobotNavigation>().OnHit(1);
+                    }
+                    if (xyzzyCountdown <= 0)
+                    {
+                        xyzzy = false;
+                        SceneManager.LoadScene("secret");
+                    }
+                }
+            break;
             default:
                 break;       
         }
@@ -543,5 +562,34 @@ public class GameManager : MonoBehaviour {
         }
 
         return hitTower;
+    }
+
+    public void xyxxy(Tower grue)
+    {
+        //TODO after pentagram, explosion
+        //TODO after explosion, load new level
+        m_inGameUI.SetActive(false);
+        m_crurentState.Pop();
+        m_crurentState.Push(State._);
+        GameObject beam5 = Object.Instantiate(grue.particleBeam);
+        beam5.GetComponent<ConnectionParticleBeam>().target = source;
+        beam5.GetComponent<ConnectionParticleBeam>().parent = grue;
+        beam5.GetComponent<ConnectionParticleBeam>().Orient();
+        xyzzyCountdown = 5;
+        xyzzy = true;
+        foreach(Tower t in towers)
+        {
+            if (t.inStack)
+            {
+                Object.Instantiate(blast, t.beamEndpoint.transform);
+            }
+        }
+    }
+
+    public void unxyxxy()
+    {
+        m_titleMenuUI.SetActive(true);
+        m_crurentState.Pop();//_
+        SceneManager.LoadScene(0);
     }
 }

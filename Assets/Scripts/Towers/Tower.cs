@@ -26,6 +26,9 @@ public abstract class Tower : MonoBehaviour {
 
     public List<ConnectionParticleBeam> beams;
 
+    [SerializeField]protected int distanceFromSource;
+
+
 	// Use this for initialization
 	protected virtual void Start () {
         m_powerInput = 0;
@@ -108,7 +111,14 @@ public abstract class Tower : MonoBehaviour {
                 {
                     // Add connection to children and set its children
                     children.Add(connectedTower);
+                    connectedTower.distanceFromSource = this.distanceFromSource + 1;
                     connectedTower.SetChildren();
+
+                } else if (connectedTower.distanceFromSource == 0 && distanceFromSource == 4)
+                {
+                    //TODO secret stuff
+                    Debug.Log("easter egg");
+                    GameManager.Instance.xyxxy(this);
                 }
             }
             inStack = false;

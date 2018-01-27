@@ -32,6 +32,7 @@ public class PowerSource : Tower, IConnector
  
     public void CalculateChildren()
     {
+        distanceFromSource = 0;
         SetChildren();
     }
 

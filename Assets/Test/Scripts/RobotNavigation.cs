@@ -70,14 +70,18 @@ public class RobotNavigation : MonoBehaviour {
 
     public void OnHit(int damage)
     {
-        m_health -= damage;
-        if (m_health <= 0)
+        if (!m_alive)
         {
-            OnDeath();
-        } else
-        {
-            damageEffect.Play();
-            GameManager.Instance.power += m_power;
+            m_health -= damage;
+            if (m_health <= 0)
+            {
+                OnDeath();
+            }
+            else
+            {
+                damageEffect.Play();
+                GameManager.Instance.power += m_power;
+            }
         }
     }
 
