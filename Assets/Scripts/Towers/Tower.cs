@@ -25,7 +25,11 @@ public abstract class Tower : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-		
+
+        if(GameManager.Instance.selectedTower == gameObject)
+        {
+            // TODO turn on selection effect
+        }
 	}
 
     // Returns all towers this tower is trying to connect to

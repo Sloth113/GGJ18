@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour {
 
     //Input
     [SerializeField]private GameObject m_selectedTower;
+    public GameObject selectedTower { get { return m_selectedTower; } }
     private bool m_connect;
 
     //State and other 
