@@ -42,4 +42,9 @@ public class RelayTower : Tower, IConnector
         base.Update();
 	}
 
+    protected override void SetRangeCircle()
+    {
+        SetRangeCirclePoints(connectionRange);
+    }
+
 }

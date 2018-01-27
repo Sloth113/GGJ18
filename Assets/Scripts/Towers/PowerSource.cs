@@ -47,4 +47,9 @@ public class PowerSource : Tower, IConnector
         }
         return success;
     }
+
+    protected override void SetRangeCircle()
+    {
+        SetRangeCirclePoints(connectionRange);
+    }
 }

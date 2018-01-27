@@ -19,6 +19,9 @@ public abstract class Tower : MonoBehaviour {
 
     public GameObject particleBeam;
 
+    public LineRenderer rangeCircle;
+    [SerializeField] int circleSegments = 50;
+
     public GameObject beamEndpoint;
 
     public GameObject selectionPlane;
@@ -30,6 +33,7 @@ public abstract class Tower : MonoBehaviour {
 	protected virtual void Start () {
         m_powerInput = 0;
         children = new List<Tower>();
+        SetRangeCircle();
 	}
 	
 	// Update is called once per frame
@@ -39,9 +43,11 @@ public abstract class Tower : MonoBehaviour {
         {
             selectionPlane.SetActive(true);
             selectionPlane.transform.Rotate(new Vector3(0, Time.deltaTime * rotationRate, 0));
+            rangeCircle.gameObject.SetActive(true);
         } else
         {
             selectionPlane.SetActive(false);
+            rangeCircle.gameObject.SetActive(false);
         }
         // Manage connection beams
         HashSet<Tower> beamTargets = new HashSet<Tower>(children);
@@ -112,6 +118,24 @@ public abstract class Tower : MonoBehaviour {
                 }
             }
             inStack = false;
+        }
+    }
+
+    protected abstract void SetRangeCircle();
+
+    protected void SetRangeCirclePoints(float radius)
+    {
+        float x, z;
+        float angle = 0;
+        float increment = 360f / circleSegments;
+        rangeCircle.positionCount = circleSegments + 1;
+        rangeCircle.useWorldSpace = false;
+        for(int i = 0; i < (circleSegments + 1); i++)
+        {
+            x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
+            z = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
+            rangeCircle.SetPosition(i, new Vector3(x, 0, z));
+            angle += increment;
         }
     }
 
