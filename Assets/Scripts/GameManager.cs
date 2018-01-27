@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     private enum State
@@ -65,6 +66,8 @@ public class GameManager : MonoBehaviour {
     public GameObject m_inGameUI;
     public GameObject m_settingsUI;
     public GameObject m_overUI;
+    public GameObject m_overDead;
+    public GameObject m_overWin;
     public GameObject m_eventSystem;
 
     //Enemies in game stuff
@@ -171,6 +174,9 @@ public class GameManager : MonoBehaviour {
                     {
                         //All enemies dead and finished spawning
                         LevelToOver();
+
+                        m_overDead.SetActive(false);
+                        m_overWin.SetActive(true);
                     }
 
                     m_enemiesInPlay.RemoveAll(item => item == null);
@@ -278,6 +284,13 @@ public class GameManager : MonoBehaviour {
                     {
                         m_selectedTower = newSelection.gameObject;
                     }
+                }
+                if (((m_powerSource.GetComponent<PowerSourceHealth>().ShowCurrentHealth())) <= 0)
+                {
+                    LevelToOver();
+                    //Display dead
+                    m_overDead.SetActive(true);
+                    m_overWin.SetActive(false);
                 }
 
                 // Update power graph if dirty
