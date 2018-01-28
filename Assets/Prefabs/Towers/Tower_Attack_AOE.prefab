@@ -352,14 +352,16 @@ MonoBehaviour:
   selectionPlane: {fileID: 1785893815318982}
   rotationRate: 20
   beams: []
+  distanceFromSource: 0
   m_fireAudioClip: {fileID: 8300000, guid: c3d66e7879ca5034083b22aaf1d3c8dc, type: 3}
   minPower: 20
   maxPower: 40
   minROF: 0.2
   maxROF: 1
+  rof: 0
   fireTime: 0
   reloadProgress: 0
-  damage: 10
+  damage: 15
   EnemyDetector: {fileID: 135908277157622876}
   range: 30
   blast: {fileID: 198465121355095716}
