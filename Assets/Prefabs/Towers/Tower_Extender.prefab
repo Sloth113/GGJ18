@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353368044208528}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -144.41513, y: 266.7269, z: -450.41827}
+  m_LocalPosition: {x: -141.73834, y: 12.245591, z: 41.381462}
   m_LocalScale: {x: 1, y: 7.441742, z: 1}
   m_Children:
   - {fileID: 4532509595157234}
@@ -128,7 +128,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1831196076125088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
+  m_LocalPosition: {x: 0, y: -1.438, z: 0}
   m_LocalScale: {x: 1.4385691, y: 1.4385694, z: 1.4385694}
   m_Children: []
   m_Father: {fileID: 4222490259015302}
@@ -262,8 +262,9 @@ MonoBehaviour:
   selectionPlane: {fileID: 1831196076125088}
   rotationRate: 20
   beams: []
+  distanceFromSource: 0
   child: {fileID: 0}
-  connectionRange: 60
+  connectionRange: 100
 --- !u!120 &120430639071919034
 LineRenderer:
   m_ObjectHideFlags: 1

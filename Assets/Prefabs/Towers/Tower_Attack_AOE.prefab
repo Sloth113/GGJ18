@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785893815318982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -7.93, z: 0.76}
   m_LocalScale: {x: 2.5, y: 1, z: 2.5}
   m_Children: []
   m_Father: {fileID: 4952762134600956}
@@ -186,7 +186,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1105519464279026}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.1, y: 16.336983, z: -105.44605}
+  m_LocalPosition: {x: -246.60548, y: 77.6, z: 96.27283}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4641897800643488}
@@ -361,9 +361,9 @@ MonoBehaviour:
   rof: 0
   fireTime: 0
   reloadProgress: 0
-  damage: 15
+  damage: 25
   EnemyDetector: {fileID: 135908277157622876}
-  range: 30
+  range: 35
   blast: {fileID: 198465121355095716}
 --- !u!120 &120584052956354458
 LineRenderer:
