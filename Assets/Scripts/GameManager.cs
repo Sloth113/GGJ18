@@ -308,7 +308,7 @@ public class GameManager : MonoBehaviour {
                         m_selectedTower = newSelection.gameObject;
                         m_ingameInfo.SetActive(true);
                         Text info = m_ingameInfo.GetComponentInChildren<Text>();
-                        info.text = "Build Cost : " + m_selectedTower.GetComponent<Tower>().cost + " Running Cost: " + (m_selectedTower.GetComponent<Tower>() is AttackTower ? m_selectedTower.GetComponent<AttackTower>().minPower : 0);
+                        info.text = m_selectedTower.GetComponent<Tower>().GetInfoText();
                     }
                    
                 }

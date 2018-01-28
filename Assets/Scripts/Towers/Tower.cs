@@ -152,4 +152,9 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
+    public virtual string GetInfoText()
+    {
+        string text = "Cost: " + cost + " Power: " + m_powerInput;
+        return text;
+    }
 }

@@ -42,5 +42,4 @@ public class DistributionTower : Tower {
     {
         SetRangeCirclePoints(range);
     }
-
 }

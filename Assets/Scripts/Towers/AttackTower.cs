@@ -13,6 +13,7 @@ public class AttackTower : Tower {
     public float maxPower;
     public float minROF;    // Min shots per second
     public float maxROF;    // Max shots per second
+    public float rof;
     public float fireTime;  // Seconds between shots
     public float reloadProgress;    // How long reload is taking
 
@@ -49,12 +50,13 @@ public class AttackTower : Tower {
         if(m_powerInput >= minPower)
         {
             //TODO maybe have different interpolation function?
-            float rof = Mathf.Lerp(minROF, maxROF, (m_powerInput - minPower) / (maxPower - minPower));
+            rof = Mathf.Lerp(minROF, maxROF, (m_powerInput - minPower) / (maxPower - minPower));
             fireTime = 1.0f / rof;
             powered = true;
         } else
         {
             powered = false;
+            rof = 0;
         }
 
         // Reload attack
@@ -86,4 +88,10 @@ public class AttackTower : Tower {
         SetRangeCirclePoints(range);
     }
 
+
+    public override string GetInfoText()
+    {
+        string text = "Cost: " + cost + " Power: " + m_powerInput + " RoF: " + rof + " Dmg: " + damage;
+        return text;
+    }
 }
