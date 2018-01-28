@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AudioSource))]
 public class RobotNavigation : MonoBehaviour {
 
     //[SerializeField] private Vector3 destination;
@@ -30,11 +31,18 @@ public class RobotNavigation : MonoBehaviour {
         m_agent.speed = m_speed;
         if (endDestination != null)
             m_agent.destination = endDestination.transform.position;
+
+        // Specific code for level 4
+        // Goes through each tower and enemies choose path depending on which has lighter defense
         foreach(AttackTower newTower in GameManager.Instance.attackTowers)
         {
-            if (newTower.transform.position.x >= -100 && newTower.Powered)
+            if (newTower.transform.position.x >= -100 && newTower.transform.position.z >= 150 && newTower.Powered)
                 m_agent.SetAreaCost(4, m_agent.GetAreaCost(4) + 1);
-            else if (newTower.transform.position.y < -100 && newTower.Powered)
+            else if (newTower.transform.position.x < -100 && newTower.transform.position.z >= 150 && newTower.Powered)
+                m_agent.SetAreaCost(3, m_agent.GetAreaCost(3) + 1);
+            else if (newTower.transform.position.x >= -73 && newTower.transform.position.z < 150 && newTower.Powered)
+                m_agent.SetAreaCost(4, m_agent.GetAreaCost(4) + 1);
+            else if (newTower.transform.position.x < -73 && newTower.transform.position.z < 150 && newTower.Powered)
                 m_agent.SetAreaCost(3, m_agent.GetAreaCost(3) + 1);
         }
 
@@ -86,6 +94,12 @@ public class RobotNavigation : MonoBehaviour {
     {
         // gameManager.addPower(power);
         m_alive = false;
+        //sfx
+        GameObject soundManager;
+        AudioSource sound;
+        sound = GetComponent<AudioSource>();
+        SoundManager.instance.PlaySfx(sound.clip);
+
         // Disable components
         this.GetComponent<Collider>().enabled = false;
         Destroy(this.GetComponent<Rigidbody>());

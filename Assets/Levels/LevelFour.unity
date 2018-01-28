@@ -312,6 +312,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9d8a7ca818139d4aba6db5ef4aa15d5, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &39063226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 39063227}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &39063227
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 39063226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -73.3, y: 0, z: 153.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 55
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &66249542
 Prefab:
   m_ObjectHideFlags: 0
@@ -1238,11 +1266,14 @@ MonoBehaviour:
     waveCooldown: 3
   - spawnOrder: 01000000010000000100000001000000010000000100000001000000010000000100000001000000
     spawnTimer: 3
-    waveCooldown: 10
+    waveCooldown: 5
   - spawnOrder: 0000000001000000000000000200000000000000010000000000000002000000000000000100000000000000020000000000000001000000000000000200000000000000010000000000000002000000
     spawnTimer: 1
-    waveCooldown: 10
-  - spawnOrder: 00000000000000000000000000000000010000000000000000000000000000000200000001000000
+    waveCooldown: 5
+  - spawnOrder: 0000000000000000000000000000000001000000000000000000000000000000000000000100000000000000000000000000000000000000020000000000000000000000000000000000000001000000
+    spawnTimer: 1
+    waveCooldown: 7
+  - spawnOrder: 01000000010000000000000000000000010000000000000000000000000000000200000001000000
     spawnTimer: 1
     waveCooldown: 10
   powerSource: {fileID: 1336781443}
