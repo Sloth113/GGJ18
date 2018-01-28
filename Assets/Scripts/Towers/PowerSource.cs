@@ -11,6 +11,9 @@ public class PowerSource : Tower, IConnector
 
     public float powerUsed;
 
+    public GameObject destroyEffect;
+    public float explosionDelay = 1.0f;
+
     public override List<Tower> GetConnections()
     {
         List<Tower> l_children = new List<Tower>();
@@ -29,6 +32,19 @@ public class PowerSource : Tower, IConnector
     // Update is called once per frame
     protected override void Update () {
         base.Update();
+
+        if(destroyEffect == null && explosionDelay <= 0)
+        {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - Time.deltaTime * 10, this.transform.position.z);
+        }
+        else if (destroyEffect == null)
+        {
+            explosionDelay -= Time.deltaTime;
+        }
+        if(this.transform.position.y < 10)
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+        }
 	}
 
  
@@ -96,5 +112,11 @@ public class PowerSource : Tower, IConnector
         }
         
         return list;
+    }
+
+    public void DestroyTower()
+    {
+        Instantiate<GameObject>(destroyEffect, new Vector3(this.transform.position.x, this.transform.position.y - 5, this.transform.position.z), this.transform.rotation);
+        destroyEffect = null;
     }
 }

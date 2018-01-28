@@ -316,6 +316,7 @@ public class GameManager : MonoBehaviour {
                 {
                     LevelToOver();
                     //Display dead
+                    m_powerSource.GetComponent<PowerSource>().DestroyTower();
                     m_overDead.SetActive(true);
                     m_overWin.SetActive(false);
                 }

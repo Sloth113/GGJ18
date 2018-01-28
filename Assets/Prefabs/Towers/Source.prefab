@@ -279,8 +279,12 @@ MonoBehaviour:
   selectionPlane: {fileID: 1719847281654142}
   rotationRate: 20
   beams: []
+  distanceFromSource: 0
   child: {fileID: 0}
   connectionRange: 100
+  powerUsed: 0
+  destroyEffect: {fileID: 1570036592558198, guid: cc9c59ec8439f344097ae00093ef424e,
+    type: 2}
 --- !u!114 &114997445456434684
 MonoBehaviour:
   m_ObjectHideFlags: 1
