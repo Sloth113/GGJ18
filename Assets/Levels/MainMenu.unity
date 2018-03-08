@@ -5114,7 +5114,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1813850548}
-        m_MethodName: ExitSettings
+        m_MethodName: MenuItemToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6251,7 +6251,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1813850548}
-        m_MethodName: 
+        m_MethodName: MenuToCredits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6948,11 +6948,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -7170,7 +7170,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1813850548}
-        m_MethodName: 
+        m_MethodName: MenuItemToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7812,7 +7812,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1813850548}
-        m_MethodName: 
+        m_MethodName: MenuToTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9538,6 +9538,8 @@ MonoBehaviour:
   m_ingameInfo: {fileID: 1693319523}
   m_inGameStart: {fileID: 1313987869}
   m_settingsUI: {fileID: 1750620831}
+  m_tutorialUI: {fileID: 974357168}
+  m_creditsUI: {fileID: 1236428610}
   m_overUI: {fileID: 205084829}
   m_overDead: {fileID: 315611319}
   m_overWin: {fileID: 1001640000}

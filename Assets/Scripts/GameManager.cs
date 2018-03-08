@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour {
     public GameObject m_ingameInfo;
     public GameObject m_inGameStart;
     public GameObject m_settingsUI;
+    public GameObject m_tutorialUI; //New
+    public GameObject m_creditsUI; //New
     public GameObject m_overUI;
     public GameObject m_overDead;
     public GameObject m_overWin;
@@ -471,6 +473,24 @@ public class GameManager : MonoBehaviour {
     public void MenuToQuit()
     {
         Application.Quit();
+    }
+    //New
+    public void MenuToTutorial() 
+    {
+        m_titleMenuUI.SetActive(false);
+        m_tutorialUI.SetActive(true);
+        //m_crurentState.Push(State.Settings);
+    }
+    public void MenuToCredits() 
+    {
+        m_titleMenuUI.SetActive(false);
+        m_creditsUI.SetActive(true);
+    }
+    public void MenuItemToMenu() 
+    {
+        m_titleMenuUI.SetActive(true);
+        m_creditsUI.SetActive(false);
+        m_tutorialUI.SetActive(false);
     }
 
 
