@@ -14,29 +14,22 @@ public class Tutorial : MonoBehaviour {
     public GameObject pageForward;
     public GameObject pageBack;
 
-
     int currentPage = 0;
+
+
+
+    public void ResetMenu()
+    {
+        currentPage = 0;
+        imageOutput.sprite = tutorialImages[currentPage];
+        textOutput.text = tutorialText[currentPage];
+        pageForward.SetActive(true);
+        pageBack.SetActive(false);
+    }
 
     void Start()
     {
-        imageOutput.sprite = tutorialImages[currentPage];
-        textOutput.text = tutorialText[currentPage];
-        if (currentPage >= tutorialImages.Count - 1)
-        {
-            pageForward.SetActive(false);
-        }
-        else
-        {
-            pageBack.SetActive(true);
-        }
-        if (currentPage <= 0)
-        {
-            pageBack.SetActive(false);
-        }
-        else
-        {
-            pageForward.SetActive(true);
-        }
+        ResetMenu();
     }
 
 
@@ -71,8 +64,4 @@ public class Tutorial : MonoBehaviour {
 
 
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
