@@ -127,6 +127,8 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(m_inGameUI);
         DontDestroyOnLoad(m_settingsUI);
         DontDestroyOnLoad(m_levelSelectUI);
+        DontDestroyOnLoad(m_creditsUI);
+        DontDestroyOnLoad(m_tutorialUI);
         DontDestroyOnLoad(m_overUI);
         DontDestroyOnLoad(m_eventSystem);
     }
