@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour {
                             if (Physics.SphereCast(mouseRay, 5, out hit, Mathf.Infinity,1, QueryTriggerInteraction.Collide)) {
                               // if (Physics.SphereCast(mouseRay, 5, out hit)) { 
                                 Debug.Log(hit.transform.name);
-                                if (hit.transform.tag == "Ground")
+							if (hit.transform.tag == "Ground")
                                 {
                                     Vector3 castPoint = hit.point;
                                     
