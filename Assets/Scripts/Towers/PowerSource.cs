@@ -79,11 +79,17 @@ public class PowerSource : Tower, IConnector
         Debug.Log(fullList.Count);
         foreach (Tower t in fullList)
         { 
-            if(t is AttackTower)
+			if(t is AttackTower && !t.calculated)
             {
                 power += (t as AttackTower).minPower;
+				t.calculated = true;
             }
         }
+		//Resets for the next calculation
+		foreach (Tower t in fullList) 
+		{ 
+			t.calculated = false;
+		}
         return power;
     }
     public List<Tower> GetAllChildren()

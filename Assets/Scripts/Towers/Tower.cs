@@ -13,6 +13,8 @@ public abstract class Tower : MonoBehaviour {
     public bool visited = false;    //Has been visited in power graph search
     [HideInInspector]
     public bool inStack = false;    //Is currently in recursion stack for power graph search
+	[HideInInspector]
+	public bool calculated = false;	//Already calculated for the power calculation
 
     // Towers connected to which this is sending power to
     public List<Tower> children;

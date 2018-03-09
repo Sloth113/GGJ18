@@ -26,6 +26,13 @@ public class JunctionTower : Tower, IConnector {
     public bool MakeConnection(Tower target)
     {
         bool success = false;
+		//// Check if target is already connected
+		//foreach (Tower t in connections) 
+		//{
+		//	if (t == target)
+		//		return success;
+		//}
+
         // Check if target in range
         Vector3 displacement = target.transform.position - transform.position;
         if (displacement.sqrMagnitude <= connectionRange * connectionRange)
