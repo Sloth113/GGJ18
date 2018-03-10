@@ -30,6 +30,8 @@ public class AttackTower : Tower {
 
     public float range =10;
 
+	private Color originalColour;	// Stores the original colour of the tower
+
 
 	// Use this for initialization
 	protected override void Start () {
@@ -37,6 +39,8 @@ public class AttackTower : Tower {
         shotReady = true;
         reloadProgress = 0;
         m_audioSource = GetComponent<AudioSource>();
+		// This is used to get the original colour of the tower
+		originalColour = GetComponent<Renderer>().material.GetColor("_EmissionColor");
 	}
 	
 	// Update is called once per frame
@@ -53,10 +57,14 @@ public class AttackTower : Tower {
             rof = Mathf.Lerp(minROF, maxROF, (m_powerInput - minPower) / (maxPower - minPower));
             fireTime = 1.0f / rof;
             powered = true;
+			// Sets the colour of the tower to its original colour when powered
+			GetComponent<Renderer> ().material.SetColor ("_EmissionColor", originalColour);
         } else
         {
             powered = false;
             rof = 0;
+			// Sets the colour of the tower to black when not powered
+			GetComponent<Renderer> ().material.SetColor ("_EmissionColor", Color.black);
         }
 
         // Reload attack
