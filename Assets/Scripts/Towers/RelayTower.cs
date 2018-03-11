@@ -6,6 +6,8 @@ public class RelayTower : Tower, IConnector
 {
 
     public Tower child;
+	private Color originalColour;	// Stores the original colour of the tower
+
 
     [SerializeField] float connectionRange;
 
@@ -34,12 +36,23 @@ public class RelayTower : Tower, IConnector
 
     // Use this for initialization
     protected override void Start () {
+		// This is used to get the original colour of the tower
+		originalColour = GetComponent<Renderer>().material.GetColor("_EmissionColor");
         base.Start();
 	}
 
     // Update is called once per frame
     protected override void Update () {
         base.Update();
+		if(m_powerInput > 0)
+		{
+			// Sets the colour of the tower to its original colour when powered
+			GetComponent<Renderer> ().material.SetColor ("_EmissionColor", originalColour);
+		} else
+		{
+			// Sets the colour of the tower to black when not powered
+			GetComponent<Renderer> ().material.SetColor ("_EmissionColor", Color.black);
+		}
 	}
 
     protected override void SetRangeCircle()
